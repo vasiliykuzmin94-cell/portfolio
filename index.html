@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Василий Кузьмин — Digital-маркетолог</title>
+  <meta name="description" content="Digital-маркетолог на стыке performance, аналитики, технологий и AI. Портфолио кейсов.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+            display: ['Unbounded', 'Manrope', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#0d0d0e',
+            surface: '#151516',
+            highlight: '#202023',
+            ink: '#f1f0eb',
+            muted: '#929296',
+            line: '#2b2b2e',
+          },
+          maxWidth: {
+            site: '1600px',
+          },
+          boxShadow: {
+            card: '0 1px 2px rgba(20, 20, 20, 0.03), 0 12px 28px rgba(20, 20, 20, 0.04)',
+            soft: '0 20px 50px rgba(20, 20, 20, 0.07)',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/custom.css?v=dark-editorial-26">
+</head>
+<body class="bg-canvas text-ink font-sans antialiased">
+  <div class="page-glow" aria-hidden="true"></div>
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div class="cursor-light" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header sticky top-0 z-50">
+    <div class="max-w-site mx-auto px-5 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
+      <a href="#top" class="brand-lockup text-ink">
+        <img src="assets/signature.png?v=2" alt="" class="brand-signature" aria-hidden="true">
+        <span>Василий Кузьмин</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1 text-sm text-muted" id="main-nav">
+        <a href="#cases" class="nav-link" data-section="cases">Кейсы</a>
+        <a href="#about" class="nav-link" data-section="about">Опыт</a>
+        <a href="#certificates" class="nav-link" data-section="certificates">Сертификаты</a>
+        <a href="#contacts" class="nav-link" data-section="contacts">Контакты</a>
+      </nav>
+      <a href="#contacts" class="btn-primary text-sm">Связаться</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero-section max-w-site mx-auto px-5 sm:px-8 lg:px-12">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title hero-animate"></h1>
+          <p id="hero-subtitle" class="hero-subtitle hero-animate"></p>
+          <div class="hero-actions hero-animate">
+            <a href="#cases" class="btn-primary magnetic">Смотреть кейсы <span aria-hidden="true">↘</span></a>
+            <a href="#contacts" class="btn-secondary magnetic">Обсудить проект</a>
+          </div>
+        </div>
+        <div class="hero-visual hero-animate">
+          <div class="portrait-frame">
+            <img src="assets/hero-wide.png?v=rhero-3" alt="Василий Кузьмин">
+          </div>
+          <div class="portrait-index" aria-hidden="true">01 / 04</div>
+          <div class="portrait-badge"><span>Всегда на связи</span></div>
+        </div>
+        <div id="hero-tags" class="hero-tags hero-animate"></div>
+        <div class="hero-scroll hero-animate" aria-hidden="true">
+          <span>Scroll to explore</span>
+          <i></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section reveal">
+      <div class="max-w-site mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="stats-caption">Я в цифрах</div>
+        <div id="stats" class="stats-grid"></div>
+      </div>
+    </section>
+
+    <section id="cases" class="work-section max-w-site mx-auto px-5 sm:px-8 lg:px-12">
+      <div class="section-head reveal">
+        <p class="section-kicker">01 / Мои кейсы</p>
+        <div>
+          <h2 class="section-title">Кейсы</h2>
+          <p class="section-lead">Результаты из performance, аналитики, SEO, CRM и AI-проектов</p>
+        </div>
+      </div>
+
+      <div class="tabs-sticky mb-10">
+        <div id="tabs" class="tabs-row" role="tablist" aria-label="Направления"></div>
+      </div>
+      <div id="cards-grid" class="work-grid"></div>
+    </section>
+
+    <section id="about" class="band editorial-section">
+      <div class="max-w-site mx-auto px-5 sm:px-8 lg:px-12 reveal">
+        <div class="section-head">
+          <p class="section-kicker">02 / Career</p>
+          <div>
+            <h2 class="section-title">Опыт работы</h2>
+            <p class="section-lead">От in-house до агентства и корпоративного digital-контура</p>
+          </div>
+        </div>
+        <div id="experience-list" class="experience-timeline"></div>
+      </div>
+    </section>
+
+    <section id="certificates" class="editorial-section max-w-site mx-auto px-5 sm:px-8 lg:px-12 reveal">
+      <div class="section-head">
+        <p class="section-kicker">03 / Proof</p>
+        <div>
+          <h2 class="section-title">Сертификаты</h2>
+          <p class="section-lead">Яндекс, Google и профильные квалификации</p>
+        </div>
+      </div>
+      <div id="certificates-grid" class="grid sm:grid-cols-2 gap-3"></div>
+    </section>
+
+    <section id="contacts" class="contact-section">
+      <div class="max-w-site mx-auto px-5 sm:px-8 lg:px-12 reveal">
+        <div class="contact-statement">
+          <p class="section-kicker">04 / Contact</p>
+          <h2>Есть задача?<br><em>Давайте обсудим.</em></h2>
+          <p>Всегда рад обсудить ваши задачи и найти точку роста.</p>
+        </div>
+        <div id="contacts-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="max-w-site mx-auto px-5 sm:px-8 lg:px-12 py-7 flex justify-between items-center text-sm text-muted">
+      <span>© 2026 Василий Кузьмин</span>
+      <a href="#top" class="hover:text-ink transition-colors">Наверх ↑</a>
+    </div>
+  </footer>
+
+  <div id="modal" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+    <div id="modal-backdrop" class="absolute inset-0 bg-ink/40 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 overflow-y-auto p-4 sm:p-8">
+      <div id="modal-panel" class="relative max-w-6xl mx-auto my-4 overflow-hidden">
+        <button id="modal-close" class="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center rounded-xl bg-highlight text-muted hover:text-ink transition-colors text-xl leading-none" aria-label="Закрыть">×</button>
+
+        <div id="modal-hero" class="aspect-[21/9] bg-highlight border-b border-line overflow-hidden"></div>
+
+        <div class="p-8 sm:p-11 border-b border-line">
+          <span id="modal-category" class="inline-block text-xs font-medium tracking-wide text-muted mb-4"></span>
+          <h2 id="modal-title" class="text-2xl sm:text-3xl font-bold tracking-tight text-ink pr-12 leading-[1.2]"></h2>
+        </div>
+
+        <div class="p-8 sm:p-11">
+          <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+            <aside id="modal-sidebar" class="lg:col-span-4 space-y-6"></aside>
+            <div id="modal-content" class="lg:col-span-8 space-y-6"></div>
+          </div>
+
+          <div id="modal-gallery-wrap" class="mt-12 pt-10 border-t border-line hidden">
+            <h4 class="text-xs font-medium tracking-wide text-muted mb-5">Материалы кейса</h4>
+            <div id="modal-gallery" class="modal-gallery-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="fixed inset-0 z-[120] hidden items-center justify-center bg-ink/90 p-4" aria-hidden="true">
+    <button id="lightbox-close" class="absolute top-5 right-5 w-10 h-10 rounded-xl bg-white/10 text-white text-xl hover:bg-white/20" aria-label="Закрыть">×</button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-2xl object-contain">
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js?v=dark-editorial-9"></script>
+</body>
+</html>

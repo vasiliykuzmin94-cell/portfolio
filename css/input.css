@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../js/**/*.js";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+.card-enter {
+  animation: cardIn 0.35s ease forwards;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+#modal-panel {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#modal:not(.is-open) #modal-panel {
+  opacity: 0;
+  transform: scale(0.97) translateY(8px);
+}
+
+#modal.is-open #modal-panel {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
