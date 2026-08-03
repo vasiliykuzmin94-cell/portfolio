@@ -1325,7 +1325,8 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Last column wider for "10 280" — uneven is intentional */
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1.05fr) minmax(0, 1.55fr);
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
 }
@@ -1357,21 +1358,23 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.15em;
+  gap: 0.12em;
   margin-bottom: 2.5rem;
   color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(2.4rem, 4vw, 4.6rem);
+  font-size: clamp(2.45rem, 4.3vw, 4.5rem);
   font-weight: 600;
   line-height: 1;
 }
 
 .stat-number-accent {
   display: inline-block;
-  padding: 0.12em 0.16em 0.16em;
+  padding: 0.12em 0.14em 0.14em;
   color: #0d0d0e;
   background: var(--accent);
   line-height: 0.9;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
 }
 
 .stat-value-suffix {
@@ -2072,7 +2075,10 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     min-height: 9rem;
     padding: 1.4rem;
   }
-  .stat-value { margin-bottom: 1.5rem; }
+  .stat-value {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.1rem, 8.5vw, 3.1rem);
+  }
   .section-head {
     grid-template-columns: 1fr;
     gap: 1.5rem;
