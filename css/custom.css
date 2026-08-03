@@ -1101,7 +1101,7 @@ main,
 }
 
 .hero-title {
-  max-width: 36rem;
+  max-width: 38rem;
   margin: 0 0 1.35rem;
   color: var(--ink);
   font-family: var(--display);
@@ -1109,7 +1109,7 @@ main,
   font-weight: 600;
   letter-spacing: -0.008em;
   line-height: 1.28 !important;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .hero-title::first-line {
