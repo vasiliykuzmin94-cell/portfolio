@@ -9,13 +9,11 @@
     { pattern: /яндекс\.?директ|директ/i, tag: 'Яндекс.Директ' },
     { pattern: /google\s*(ads|реклам)/i, tag: 'Google Ads' },
     { pattern: /яндекс\.?метрик/i, tag: 'Метрика' },
-    { pattern: /google analytics|ga4/i, tag: 'GA4' },
     { pattern: /\bb2b\b/i, tag: 'B2B' },
     { pattern: /\bb2c\b/i, tag: 'B2C' },
     { pattern: /\bseo\b|органик|поисков/i, tag: 'SEO' },
     { pattern: /crm|sap|битрикс|mailganer/i, tag: 'CRM' },
     { pattern: /email|рассыл/i, tag: 'Email' },
-    { pattern: /roi|romi|cpl/i, tag: 'ROI' },
     { pattern: /\bai\b|generative|ии|нейрос/i, tag: 'AI' },
     { pattern: /telegram|smm/i, tag: 'SMM' },
     { pattern: /tilda|лендинг|landing|1с/i, tag: 'Web' },
@@ -45,7 +43,7 @@
     if (statsIdx >= 0) {
       const end = careerIdx >= 0 ? careerIdx : certIdx >= 0 ? certIdx : lines.length;
       for (let i = statsIdx + 1; i < end; i++) {
-        const m = lines[i].match(/^(\d[\d,\.\s+]*(?:\+)?(?:\s*(?:млн|млрд|лет|проектов))?\s*₽?)(.+)$/i);
+        const m = lines[i].match(/^(\d[\d,\.\s+]*(?:\+)?(?:\s*(?:млн|млрд|лет|проектов|лидов))?\s*₽?)(.+)$/i);
         if (m) stats.push({ value: m[1].trim(), label: m[2].trim().replace(/^[—–-]\s*/, '') });
       }
     }
@@ -112,14 +110,22 @@
   }
 
   function getCardSummary(c) {
+    const cleanMetaPrefix = (text) =>
+      String(text || '')
+        .replace(/^[-–•*]\s*/, '')
+        .replace(/^(Клиент:|Ситуация:|Проблема:|Контекст:|Задача:)\s*/i, '')
+        .trim();
+
+    const desc = cleanMetaPrefix(c.description);
+    if (desc.length > 40) return truncate(desc, 140);
+
     const paras = c.content.split('\n').map((l) => l.trim()).filter(Boolean);
     for (const p of paras) {
       if (/^(Клиент:|Сайт:|Кейс:|Кейс \d+:|Landing)/i.test(p)) continue;
       if (/^(Задачи:|Каналы|География|Период|\*|\d+\.)/i.test(p)) continue;
-      const clean = p.replace(/^(Ситуация:|Проблема:|Контекст:|Задача:)\s*/i, '');
+      const clean = cleanMetaPrefix(p);
       if (clean.length > 40) return truncate(clean, 140);
     }
-    const desc = (c.description || '').replace(/^(Клиент:|Ситуация:|Проблема:|Контекст:|Задача:)\s*/i, '');
     return truncate(desc, 140);
   }
 
@@ -154,45 +160,69 @@
       'Задача:': 'task',
     };
 
+    const isResultsHeading = (line) =>
+      /^(результаты(?:\s|$|:| теста| и | за)|результат(?:\s+за\b|:)|итоговые\s+результаты|итог(?:овые)?(?:\s|$|:)|главный бизнес|блок цифр)/i.test(
+        line
+      );
+
+    const finalizeTasks = () => {
+      if (section !== 'tasks') return;
+      if (tasksBuffer.length && !meta.tasks) meta.tasks = tasksBuffer.join('\n');
+      tasksBuffer = [];
+      section = 'solution';
+    };
+
+    const isSolutionExitFromTasks = (line) =>
+      isResultsHeading(line) ||
+      /^(Трудности|Шаг|Стратегия|Подготов|С чего|Проблема|Ситуация|Контекст|Действия|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Реализация|Вводные|На старте|Запустил|Новый филиал|В \d{4}|Отказ от)/i.test(
+        line
+      );
+
     for (const p of paras) {
       if (/^Кейс:/i.test(p) || /^Кейс \d+:/i.test(p)) continue;
 
+      const bare = p.replace(/^[-–•*]\s*/, '');
+
       let matched = false;
       for (const [prefix, key] of Object.entries(metaKeys)) {
-        if (p.startsWith(prefix)) {
-          meta[key] = p.slice(prefix.length).trim();
+        if (bare.startsWith(prefix)) {
+          // Meta after task list must close tasks, otherwise solution leaks into «Задача».
+          finalizeTasks();
+          meta[key] = bare.slice(prefix.length).trim();
           matched = true;
           break;
         }
       }
       if (matched) continue;
 
-      if (p.startsWith('Задачи:')) {
+      if (bare.startsWith('Задачи:')) {
         section = 'tasks';
         tasksBuffer = [];
         continue;
       }
 
       if (section === 'tasks') {
-        if (
-          /^(Каналы|География|Период|Трудности|Шаг|Стратегия|Подготов|С чего|Проблема|Ситуация|Контекст|Действия|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Итог|Результат)/i.test(
-            p
-          )
-        ) {
+        if (isSolutionExitFromTasks(bare)) {
           meta.tasks = tasksBuffer.join('\n');
-          section = 'solution';
-          solution.push(p);
+          tasksBuffer = [];
+          if (isResultsHeading(bare)) {
+            section = 'results';
+            results.push(bare);
+          } else {
+            section = 'solution';
+            solution.push(p);
+          }
         } else {
-          tasksBuffer.push(p.replace(/^[-–•*]\s*/, ''));
+          tasksBuffer.push(bare);
         }
         continue;
       }
 
-      if (/^(Результат|Итог|Итоговые|Главный бизнес)/i.test(p)) {
+      if (isResultsHeading(bare)) {
         section = 'results';
-        results.push(p);
+        results.push(bare);
       } else if (section === 'results') {
-        results.push(p);
+        results.push(bare);
       } else {
         solution.push(p);
       }
@@ -200,6 +230,141 @@
 
     if (tasksBuffer.length && !meta.tasks) meta.tasks = tasksBuffer.join('\n');
     return { meta, solution, results };
+  }
+
+  function highlightMetrics(text) {
+    // Keep body calm: only gently emphasize the first key metric in a line.
+    const escaped = esc(text);
+    let used = false;
+    return escaped.replace(
+      /(\d[\d\s]*[.,]?\d*\s*(?:₽|%)|в\s+\d+(?:[.,]\d+)?\s*раза?|\d+\s*×)/i,
+      (match) => {
+        if (used) return match;
+        used = true;
+        return `<span class="modal-num">${match}</span>`;
+      }
+    );
+  }
+
+  function extractSidebarHighlights(results) {
+    const items = [];
+    for (const raw of results || []) {
+      const clean = String(raw || '')
+        .replace(/^[-–•*]\s*/, '')
+        .trim();
+      if (!clean) continue;
+      if (/^(результаты|итог\b|итоговые)/i.test(clean) && clean.length < 100) continue;
+
+      let label = '';
+      let body = clean;
+      const dashSplit = clean.match(/^([^—–:]{3,80}?)\s*[—–]\s*(.+)$/);
+      const colonSplit = clean.match(/^([^:]{3,80}):\s*(.+)$/s);
+      if (dashSplit && /\d/.test(dashSplit[2])) {
+        label = dashSplit[1].trim();
+        body = dashSplit[2].trim();
+      } else if (colonSplit) {
+        label = colonSplit[1].trim();
+        body = colonSplit[2].trim();
+      } else {
+        continue;
+      }
+
+      const normalizedBody = body.replace(/(\d)\s*руб\.?/gi, '$1 ₽').replace(/(\d)\s*шт\.?/gi, '$1');
+      const valueMatch =
+        normalizedBody.match(
+          /^(топ-?\s*\d+|\d+\s*[–-]\s*\d+|в\s+\d+(?:[.,]\d+)?\s*раза?(?:\s+меньше)?|\d+\s*×|[+\-]?\d[\d\s,]*%|\d[\d\s]*[.,]?\d*\s*(?:млн|млрд)\s*₽|\d[\d\s]*[.,]?\d*\s*₽|\d[\d\s]*(?:\+)?)/i
+        ) ||
+        normalizedBody.match(
+          /(топ-?\s*\d+|\d+\s*[–-]\s*\d+|в\s+\d+(?:[.,]\d+)?\s*раза?(?:\s+меньше)?|\d+\s*×|[+\-]?\d[\d\s,]*%|\d[\d\s]*[.,]?\d*\s*(?:млн|млрд)\s*₽|\d[\d\s]*[.,]?\d*\s*₽)/i
+        );
+      if (!valueMatch) continue;
+
+      const shortLabel = label
+        .replace(/^получил\s+/i, '')
+        .replace(/^снижение\s+/i, '')
+        .replace(/^повышение\s+/i, '');
+
+      items.push({
+        label: shortLabel,
+        value: valueMatch[1].replace(/\s+/g, ' ').trim(),
+      });
+      if (items.length >= 4) break;
+    }
+    return items;
+  }
+
+  function renderSidebarHighlights(results) {
+    const items = extractSidebarHighlights(results);
+    if (!items.length) return '';
+    return `
+      <div class="sidebar-highlights">
+        <div class="sidebar-highlights-title">Ключевые результаты</div>
+        <div class="sidebar-highlights-grid">
+          ${items
+            .map(
+              (item) => `
+            <div class="sidebar-highlight">
+              <div class="sidebar-highlight-value">${esc(item.value)}</div>
+              <div class="sidebar-highlight-label">${esc(item.label)}</div>
+            </div>`
+            )
+            .join('')}
+        </div>
+      </div>`;
+  }
+
+  function renderResultItem(raw) {
+    const clean = String(raw || '')
+      .replace(/^[-–•*]\s*/, '')
+      .trim();
+    if (!clean) return '';
+
+    if (
+      /^(результаты теста|итоговые результаты(?:\s+проекта)?|итоговые результаты за)/i.test(clean) &&
+      clean.length < 100
+    ) {
+      return `<h4 class="modal-subhead">${esc(clean.replace(/:$/, ''))}</h4>`;
+    }
+
+    if (/^(результат|итог|итоговые результаты)\b/i.test(clean) && clean.length < 48 && !/\d/.test(clean)) {
+      return '';
+    }
+
+    let label = '';
+    let body = clean;
+    const dashSplit = clean.match(/^([^—–:]{3,80}?)\s*[—–]\s*(.+)$/);
+    const colonSplit = clean.match(/^([^:]{3,80}):\s*(.+)$/s);
+
+    if (dashSplit && /\d/.test(dashSplit[2])) {
+      label = dashSplit[1].trim();
+      body = dashSplit[2].trim();
+    } else if (colonSplit) {
+      label = colonSplit[1].trim();
+      body = colonSplit[2].trim();
+    }
+
+    const normalizedBody = body.replace(/(\d)\s*руб\.?/gi, '$1 ₽').replace(/(\d)\s*шт\.?/gi, '$1');
+    const valueMatch = normalizedBody.match(
+      /^(топ-?\s*\d+|\d+\s*[–-]\s*\d+|в\s+\d+(?:[.,]\d+)?\s*раза?(?:\s+меньше)?|\d+\s*×|[+\-]?\d[\d\s,]*%|\d[\d\s]*[.,]?\d*\s*(?:млн|млрд)\s*₽|\d[\d\s]*[.,]?\d*\s*₽|\d[\d\s]*(?:\+)?)/i
+    );
+    if (label && valueMatch) {
+      const value = valueMatch[1].replace(/\s+/g, ' ').trim();
+      const rest = normalizedBody.slice(valueMatch[0].length).replace(/^[:\s—–-]+/, '');
+      return `<article class="result-card">
+        <div class="result-card-kicker">${esc(label)}</div>
+        <div class="result-card-value">${esc(value)}</div>
+        ${rest ? `<p class="result-card-text">${highlightMetrics(rest)}</p>` : ''}
+      </article>`;
+    }
+
+    if (label) {
+      return `<article class="result-card">
+        <div class="result-card-kicker">${esc(label)}</div>
+        <p class="result-card-text">${highlightMetrics(normalizedBody || body)}</p>
+      </article>`;
+    }
+
+    return `<p class="modal-body">${highlightMetrics(clean)}</p>`;
   }
 
   function extractMetrics(text) {
@@ -236,6 +401,7 @@
   function getCoverMetric(c) {
     const highlights = {
       'performance-1': { value: '2×', label: 'дешевле агентств', sub: 'A/B in-house' },
+      'performance-baltlease': { value: '10 280', label: 'целевых лидов', sub: 'CPA 4 646 ₽ · CPL 6 179 ₽' },
       'performance-2': { value: '110+', label: 'лидов в месяц', sub: 'CPL 215 ₽' },
       'performance-3': { value: '15', label: 'лидов · старт с нуля', sub: 'CPL 466 ₽' },
       'performance-4': { value: '278', label: 'уникальных лидов', sub: 'CPL 253 ₽ · CR 11%' },
@@ -288,7 +454,6 @@
   function coverHTML(c, index) {
     const metric = getCoverMetric(c);
     const variant = (index % 4) + 1;
-    const number = String(index + 1).padStart(2, '0');
 
     return `
       <div class="case-cover-custom" data-tone="${esc(c.category)}" data-variant="${variant}" aria-hidden="true">
@@ -297,7 +462,6 @@
         <div class="cover-orb cover-orb-b"></div>
         <div class="cover-topline">
           <span>${esc(c.categoryName)}</span>
-          <span>${number}</span>
         </div>
         <div class="cover-center">
           <div class="cover-metric-main">
@@ -321,6 +485,7 @@
     Web: 'web-seo',
     Email: 'crm-email',
     AI: 'serm-ai',
+    SMM: 'serm-ai',
     'Digital Strategy': 'performance',
   };
 
@@ -358,13 +523,12 @@
 
   function renderStats(stats) {
     document.getElementById('stats').innerHTML = stats
-      .map((s, index) => {
-        const valueParts = s.value.match(/^([\d,.]+\+?)(.*)$/);
-        const number = valueParts ? valueParts[1] : s.value;
+      .map((s) => {
+        const valueParts = s.value.match(/^(\d[\d\s,.]*\+?)(.*)$/);
+        const number = valueParts ? valueParts[1].trim() : s.value;
         const suffix = valueParts ? valueParts[2].trim() : '';
         return `
       <div class="stat-card">
-        <div class="card-index"><span>0${index + 1}</span><span>Impact</span></div>
         <div class="stat-value">
           <span class="stat-number-accent">${esc(number)}</span>
           ${suffix ? `<span class="stat-value-suffix">${esc(suffix)}</span>` : ''}
@@ -420,7 +584,6 @@
           </div>
           <div>
             <div class="card-index">
-              <span>${String(i + 1).padStart(2, '0')} / ${String(filtered.length).padStart(2, '0')}</span>
               <span>${esc(c.categoryName)}</span>
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
@@ -715,44 +878,108 @@
 
     document.getElementById('modal-sidebar').innerHTML = `
       <dl class="space-y-6 bg-highlight rounded-2xl border border-line p-6">
+        ${sidebarField('Направление', c.categoryName)}
         ${sidebarField('Клиент', meta.client)}
         ${sidebarField('Сайт', meta.site)}
-        ${sidebarField('Задача', meta.task || meta.tasks)}
-        ${sidebarField('Инструменты', meta.tools)}
-        ${sidebarField('География', meta.geo)}
-        ${sidebarField('Период', meta.period)}
-        ${sidebarField('Направление', c.categoryName)}
-      </dl>`;
+      </dl>
+      ${renderSidebarHighlights(results)}`;
 
+    const briefBlocks = [
+      ['Задача', meta.task || meta.tasks],
+      ['Инструменты', meta.tools],
+      ['География', meta.geo],
+      ['Период', meta.period],
+    ]
+      .filter(([, value]) => value)
+      .map(([label, value]) => {
+        const lines = String(value)
+          .split('\n')
+          .map((l) => l.trim())
+          .filter(Boolean);
+        const body =
+          lines.length > 1
+            ? lines.map((l) => `• ${highlightMetrics(l)}`).join('<br>')
+            : highlightMetrics(lines[0] || String(value));
+        return `
+        <h4 class="modal-subhead">${esc(label)}</h4>
+        <p class="modal-body">${body}</p>`;
+      })
+      .join('');
+
+    let lastSolutionHeading = '';
     const solutionHtml = solution
       .map((p) => {
-        const clean = p.replace(/^[-–•*]\s*/, '');
-        const isHeading =
-          /^(Шаг \d+|Трудности|Стратегия|Подготов|С чего|Действия|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Оптимизация|Тестирование|Глубокая|Решение:|Стек)/i.test(
-            p
-          );
-        if (isHeading) {
-          return `<h4 class="text-sm font-semibold text-ink mt-6 first:mt-0">${esc(clean)}</h4>`;
+        const clean = p.replace(/^[-–•*]\s*/, '').trim();
+        if (!clean) return '';
+
+        if (/^действия и решения\.?$/i.test(clean.replace(/:$/, '').trim())) {
+          return '';
         }
-        return `<p class="text-sm text-muted leading-relaxed">${esc(clean)}</p>`;
+
+        const numbered = clean.match(/^\d+\.\s+([^.]{3,70})\.\s+(.+)$/s);
+        if (numbered) {
+          const title = numbered[1].trim();
+          const body = numbered[2].trim();
+          const key = title.toLowerCase();
+          const heading =
+            key === lastSolutionHeading
+              ? ''
+              : ((lastSolutionHeading = key), `<h4 class="modal-subhead">${esc(title)}</h4>`);
+          return `${heading}<p class="modal-body">${highlightMetrics(body)}</p>`;
+        }
+
+        const labeled = clean.match(/^([^:]{3,70}):\s+(.{20,})$/s);
+        if (labeled && !/^https?/i.test(labeled[1].trim())) {
+          const title = labeled[1].trim().replace(/^\d+\.\s*/, '');
+          const body = labeled[2].trim();
+          const narrativeStart =
+            /^(в рамках|в ходе|после|для|при|из|на основе|также|кроме|однако|чтобы|когда)/i.test(title);
+          if (/^действия и решения$/i.test(title) || narrativeStart) {
+            return `<p class="modal-body">${highlightMetrics(clean)}</p>`;
+          }
+          const key = title.toLowerCase();
+          const heading =
+            key === lastSolutionHeading
+              ? ''
+              : ((lastSolutionHeading = key), `<h4 class="modal-subhead">${esc(title)}</h4>`);
+          return `${heading}<p class="modal-body">${highlightMetrics(body)}</p>`;
+        }
+
+        const isHeading =
+          /^(Шаг \d+|Трудности|Стратегия|Подготов|С чего|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Оптимизация|Тестирование|Глубокая оптимизация|Решение|Реализация|Вводные|Стек)/i.test(
+            clean
+          ) && clean.length < 90;
+        if (isHeading) {
+          const key = clean.replace(/:$/, '').toLowerCase();
+          if (key === lastSolutionHeading) return '';
+          lastSolutionHeading = key;
+          return `<h4 class="modal-subhead">${esc(clean.replace(/:$/, ''))}</h4>`;
+        }
+        return `<p class="modal-body">${highlightMetrics(clean)}</p>`;
       })
       .join('');
 
     const resultsHtml = results.length
-      ? `<div class="mt-10 pt-10 border-t border-line">
-          <h4 class="text-xs font-medium tracking-wide text-muted mb-5">Результаты</h4>
-          <div class="space-y-3">
-            ${results
-              .map((p) => `<p class="text-sm text-ink/80 leading-relaxed">${esc(p.replace(/^[-–•*]\s*/, ''))}</p>`)
-              .join('')}
+      ? `<div class="modal-results">
+          <h3 class="modal-section-title">Результаты</h3>
+          <div class="results-grid">
+            ${results.map((p) => renderResultItem(p)).join('')}
           </div>
         </div>`
       : '';
 
     document.getElementById('modal-content').innerHTML = `
-      <div>
-        <h4 class="text-xs font-medium tracking-wide text-muted mb-5">Решение</h4>
-        <div class="space-y-3">${solutionHtml || `<p class="text-sm text-muted">${esc(c.description)}</p>`}</div>
+      <div class="modal-copy">
+        ${
+          briefBlocks
+            ? `<div class="modal-brief">
+                <h3 class="modal-section-title">Контекст</h3>
+                <div class="modal-solution">${briefBlocks}</div>
+              </div>`
+            : ''
+        }
+        <h3 class="modal-section-title">Решение</h3>
+        <div class="modal-solution">${solutionHtml || `<p class="modal-body">${esc(c.description)}</p>`}</div>
         ${resultsHtml}
       </div>`;
 
@@ -790,6 +1017,73 @@
     });
   }
 
+  function initGrain() {
+    const canvas = document.getElementById('grain-canvas');
+    const layer = document.querySelector('.noise-layer');
+    if (!canvas || !layer) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    let frame = 0;
+    let raf = 0;
+    let w = 0;
+    let h = 0;
+
+    const resize = () => {
+      // Higher buffer ≈ finer grain (less upscaling).
+      const scale = Math.min(1, 720 / Math.max(window.innerWidth, 1));
+      w = Math.max(320, Math.floor(window.innerWidth * scale));
+      h = Math.max(180, Math.floor(window.innerHeight * scale));
+      canvas.width = w;
+      canvas.height = h;
+      paint();
+    };
+
+    const paint = () => {
+      const image = ctx.createImageData(w, h);
+      const data = image.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const v = (Math.random() * 255) | 0;
+        data[i] = v;
+        data[i + 1] = v;
+        data[i + 2] = v;
+        data[i + 3] = 255;
+      }
+      ctx.putImageData(image, 0, 0);
+    };
+
+    const loop = () => {
+      frame += 1;
+      // Every other frame keeps it lively without burning CPU.
+      if (frame % 2 === 0) paint();
+      raf = requestAnimationFrame(loop);
+    };
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    if (reduceMotion) {
+      paint();
+      return;
+    }
+
+    raf = requestAnimationFrame(loop);
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        } else if (!raf) {
+          raf = requestAnimationFrame(loop);
+        }
+      },
+      { passive: true }
+    );
+  }
+
   const parsed = parseMain();
   renderHero(parsed);
   renderStats(parsed.stats);
@@ -803,4 +1097,5 @@
   initHeaderScroll();
   initNavSpy();
   initMotion();
+  initGrain();
 })();
