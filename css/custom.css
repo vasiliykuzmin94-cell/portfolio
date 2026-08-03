@@ -898,7 +898,7 @@ body {
 
 /* Dynamic film grain (canvas) — behind content, tune via --grain-opacity */
 .noise-layer {
-  --grain-opacity: 0.28;
+  --grain-opacity: 0.06;
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -915,7 +915,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .noise-layer { opacity: 0.18; }
+  .noise-layer { opacity: 0.04; }
 }
 
 .cursor-light {
