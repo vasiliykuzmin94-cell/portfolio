@@ -117,6 +117,38 @@ body {
   box-shadow: 0 10px 30px rgba(20, 20, 20, 0.04);
 }
 
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lang-switch a {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.lang-switch a:hover,
+.lang-switch a.is-active {
+  color: var(--ink);
+}
+
+.lang-switch a.is-active {
+  color: var(--accent, #c8ff32);
+}
+
 .nav-link {
   position: relative;
   padding: 8px 12px;

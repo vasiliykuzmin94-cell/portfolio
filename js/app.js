@@ -1,38 +1,157 @@
 (function () {
   const { main, cases, categories } = PORTFOLIO_DATA;
+  const LANG = document.documentElement.lang === 'en' ? 'en' : 'ru';
+  const BASE = typeof window.SITE_BASE === 'string' ? window.SITE_BASE : '';
+  const IS_EN = LANG === 'en';
+
+  const UI = IS_EN
+    ? {
+        defaultHero: 'Digital marketer',
+        phone: 'Phone',
+        emptyCategory: 'No cases in this category yet',
+        openCase: 'Open case',
+        readMore: 'Read more',
+        emptyExperience: 'Experience will be added later',
+        yandex: 'Yandex',
+        google: 'Google',
+        direction: 'Practice',
+        client: 'Client',
+        site: 'Site',
+        keyResults: 'Key results',
+        task: 'Task',
+        tools: 'Tools',
+        geo: 'Geography',
+        period: 'Period',
+        context: 'Context',
+        solution: 'Solution',
+        results: 'Results',
+        materials: 'Case materials',
+        illustration: 'Illustration',
+        close: 'Close',
+        landingsTitle: 'Product landing pages: from funnel logic to UX/UI',
+        cover: {
+          'performance-1': { value: '2×', label: 'cheaper than agencies', sub: 'A/B in-house' },
+          'performance-baltlease': { value: '10,280', label: 'qualified leads', sub: 'CPA 4,646 ₽ · CPL 6,179 ₽' },
+          'performance-2': { value: '110+', label: 'leads / month', sub: 'CPL 215 ₽' },
+          'performance-3': { value: '15', label: 'leads · from zero', sub: 'CPL 466 ₽' },
+          'performance-4': { value: '278', label: 'unique leads', sub: 'CPL 253 ₽ · CR 11%' },
+          'performance-5': { value: '30+', label: 'leads in month one', sub: 'CPL 433 ₽' },
+          'performance-6': { value: '7', label: 'leads · B2B from zero', sub: 'CPL 1,648 ₽' },
+          'performance-7': { value: '81', label: 'B2B leads in month one', sub: 'CPL 411 ₽' },
+          'performance-8': { value: '99', label: 'renovation leads', sub: 'CPL 836 ₽' },
+          'performance-9': { value: '529', label: 'leads for 1C courses', sub: 'CPL 483 ₽' },
+          'performance-10': { value: '+333%', label: 'audience growth', sub: '600 → 2,600' },
+          'analytics-11': { value: '40%', label: 'attribution restored' },
+          'web-seo-12': { value: '+900%', label: 'visit growth' },
+          'web-seo-13': { value: 'TOP-3', label: 'in search' },
+          'web-seo-14': { value: '+67%', label: 'lead growth' },
+          'web-seo-15': { value: 'UX/UI', label: 'landing pages' },
+          'crm-email-16': { value: '104M ₽', label: 'new business' },
+          'serm-ai-17': { value: '0 ₽', label: 'production budget' },
+          'serm-ai-18': { value: 'SERM', label: 'durable asset' },
+        },
+        coverFallback: {
+          performance: { value: 'PPC', label: 'performance' },
+          analytics: { value: 'B2B', label: 'analytics' },
+          'web-seo': { value: 'SEO', label: 'web & search' },
+          'crm-email': { value: 'CRM', label: 'retention' },
+          'serm-ai': { value: 'AI', label: 'innovation' },
+        },
+        metricLabels: { leads: 'leads', cpl: 'CPL', revenue: 'revenue', conversion: 'conversion' },
+      }
+    : {
+        defaultHero: 'Digital-маркетолог',
+        phone: 'Телефон',
+        emptyCategory: 'В этой категории пока нет кейсов',
+        openCase: 'Открыть кейс',
+        readMore: 'Подробнее',
+        emptyExperience: 'Опыт будет добавлен позже',
+        yandex: 'Яндекс',
+        google: 'Google',
+        direction: 'Направление',
+        client: 'Клиент',
+        site: 'Сайт',
+        keyResults: 'Ключевые результаты',
+        task: 'Задача',
+        tools: 'Инструменты',
+        geo: 'География',
+        period: 'Период',
+        context: 'Контекст',
+        solution: 'Решение',
+        results: 'Результаты',
+        materials: 'Материалы кейса',
+        illustration: 'Иллюстрация',
+        close: 'Закрыть',
+        landingsTitle: 'Продуктовые лендинги: от воронки до UX/UI',
+        cover: {
+          'performance-1': { value: '2×', label: 'дешевле агентств', sub: 'A/B in-house' },
+          'performance-baltlease': { value: '10 280', label: 'целевых лидов', sub: 'CPA 4 646 ₽ · CPL 6 179 ₽' },
+          'performance-2': { value: '110+', label: 'лидов в месяц', sub: 'CPL 215 ₽' },
+          'performance-3': { value: '15', label: 'лидов · старт с нуля', sub: 'CPL 466 ₽' },
+          'performance-4': { value: '278', label: 'уникальных лидов', sub: 'CPL 253 ₽ · CR 11%' },
+          'performance-5': { value: '30+', label: 'лидов за месяц', sub: 'CPL 433 ₽' },
+          'performance-6': { value: '7', label: 'лидов · B2B с нуля', sub: 'CPL 1 648 ₽' },
+          'performance-7': { value: '81', label: 'B2B-лидов за месяц', sub: 'CPL 411 ₽' },
+          'performance-8': { value: '99', label: 'заявок на ремонт', sub: 'CPL 836 ₽' },
+          'performance-9': { value: '529', label: 'лидов на курсы 1С', sub: 'CPL 483 ₽' },
+          'performance-10': { value: '+333%', label: 'рост аудитории', sub: '600 → 2 600' },
+          'analytics-11': { value: '40%', label: 'атрибуции восстановлено' },
+          'web-seo-12': { value: '+900%', label: 'рост визитов' },
+          'web-seo-13': { value: 'TOP-3', label: 'поисковая выдача' },
+          'web-seo-14': { value: '+67%', label: 'рост лидов' },
+          'web-seo-15': { value: 'UX/UI', label: 'лендинги под ключ' },
+          'crm-email-16': { value: '104 млн', label: 'нового бизнеса' },
+          'serm-ai-17': { value: '0 ₽', label: 'бюджет продакшена' },
+          'serm-ai-18': { value: 'SERM', label: 'цифровой актив' },
+        },
+        coverFallback: {
+          performance: { value: 'PPC', label: 'performance' },
+          analytics: { value: 'B2B', label: 'analytics' },
+          'web-seo': { value: 'SEO', label: 'web & search' },
+          'crm-email': { value: 'CRM', label: 'retention' },
+          'serm-ai': { value: 'AI', label: 'innovation' },
+        },
+        metricLabels: { leads: 'лидов', cpl: 'CPL', revenue: 'оборот', conversion: 'конверсия' },
+      };
+
+  function asset(path) {
+    if (!path) return path;
+    if (/^(https?:|data:|mailto:|tel:|#)/i.test(path)) return path;
+    return BASE + String(path).replace(/^\//, '');
+  }
 
   const TABS = (categories || []).map((c) => ({ id: c.id, label: c.name }));
   let activeTab = TABS[0]?.id || 'performance';
   let lastFocusedElement = null;
 
   const TAG_RULES = [
-    { pattern: /яндекс\.?директ|директ/i, tag: 'Яндекс.Директ' },
+    { pattern: /яндекс\.?директ|директ|yandex\s*direct/i, tag: IS_EN ? 'Yandex Direct' : 'Яндекс.Директ' },
     { pattern: /google\s*(ads|реклам)/i, tag: 'Google Ads' },
-    { pattern: /яндекс\.?метрик/i, tag: 'Метрика' },
+    { pattern: /яндекс\.?метрик|yandex\s*metrica/i, tag: IS_EN ? 'Metrica' : 'Метрика' },
     { pattern: /\bb2b\b/i, tag: 'B2B' },
     { pattern: /\bb2c\b/i, tag: 'B2C' },
-    { pattern: /\bseo\b|органик|поисков/i, tag: 'SEO' },
-    { pattern: /crm|sap|битрикс|mailganer/i, tag: 'CRM' },
-    { pattern: /email|рассыл/i, tag: 'Email' },
+    { pattern: /\bseo\b|органик|organic|поисков|search\s*results/i, tag: 'SEO' },
+    { pattern: /crm|sap|битрикс|bitrix|mailganer/i, tag: 'CRM' },
+    { pattern: /email|рассыл|mailing/i, tag: 'Email' },
     { pattern: /\bai\b|generative|ии|нейрос/i, tag: 'AI' },
     { pattern: /telegram|smm/i, tag: 'SMM' },
-    { pattern: /tilda|лендинг|landing|1с/i, tag: 'Web' },
-    { pattern: /коллтрекинг|callibri/i, tag: 'Calltracking' },
-    { pattern: /serm|wikipedia|википед|репутац/i, tag: 'SERM' },
-    { pattern: /аналитик|сквозн|utm/i, tag: 'Analytics' },
-    { pattern: /рся|контекст/i, tag: 'Performance' },
+    { pattern: /tilda|лендинг|landing|1с|1c/i, tag: 'Web' },
+    { pattern: /коллтрекинг|call\s*tracking|callibri/i, tag: 'Calltracking' },
+    { pattern: /serm|wikipedia|википед|репутац|reputation/i, tag: 'SERM' },
+    { pattern: /аналитик|analytics|сквозн|utm|attribution/i, tag: 'Analytics' },
+    { pattern: /рся|yan\b|контекст|paid\s*search|performance/i, tag: 'Performance' },
   ];
 
   const lines = main.split('\n').map((l) => l.trim()).filter(Boolean);
 
   function parseMain() {
-    const heroTitle = lines[0] || 'Digital-маркетолог';
+    const heroTitle = lines[0] || UI.defaultHero;
     const heroSubtitle = lines[1] || '';
-    const compIdx = lines.findIndex((l) => l.startsWith('Основные компетенции'));
-    const statsIdx = lines.findIndex((l) => l.startsWith('Я в цифрах'));
-    const careerIdx = lines.findIndex((l) => l.startsWith('Карьерный путь'));
-    const certIdx = lines.findIndex((l) => l.startsWith('Я и мои сертификаты'));
-    const contactIdx = lines.findIndex((l) => l.startsWith('Контакты'));
+    const compIdx = lines.findIndex((l) => /^(Основные компетенции|Core competencies)/i.test(l));
+    const statsIdx = lines.findIndex((l) => /^(Я в цифрах|By the numbers)/i.test(l));
+    const careerIdx = lines.findIndex((l) => /^(Карьерный путь|Career path)/i.test(l));
+    const certIdx = lines.findIndex((l) => /^(Я и мои сертификаты|Certificates)/i.test(l));
+    const contactIdx = lines.findIndex((l) => /^(Контакты|Contacts)/i.test(l));
 
     const competencies =
       compIdx >= 0 && lines[compIdx + 1]
@@ -43,7 +162,9 @@
     if (statsIdx >= 0) {
       const end = careerIdx >= 0 ? careerIdx : certIdx >= 0 ? certIdx : lines.length;
       for (let i = statsIdx + 1; i < end; i++) {
-        const m = lines[i].match(/^(\d[\d,\.\s+]*(?:\+)?(?:\s*(?:млн|млрд|лет|проектов|лидов))?\s*₽?)(.+)$/i);
+        const m = lines[i].match(
+          /^(\d[\d,\.\s+]*(?:\+)?(?:\s*(?:млн|млрд|[MB]|bn|mln|лет|years?|проектов|projects?|лидов|leads?))?\s*₽?)(.+)$/i
+        );
         if (m) stats.push({ value: m[1].trim(), label: m[2].trim().replace(/^[—–-]\s*/, '') });
       }
     }
@@ -71,9 +192,10 @@
       let group = 'other';
       for (let i = certIdx + 1; i < (contactIdx >= 0 ? contactIdx : lines.length); i++) {
         const l = lines[i];
-        if (l.startsWith('Яндекс')) group = 'yandex';
-        else if (l.startsWith('Google')) group = 'google';
-        else if (!l.startsWith('Все основные')) certificates[group].push(l);
+        // Only short section headers ("Яндекс:", "Google:") — not cert titles that start with the brand.
+        if (/^(Яндекс|Yandex)\s*:?\s*$/i.test(l)) group = 'yandex';
+        else if (/^Google\s*:?\s*$/i.test(l)) group = 'google';
+        else if (!/^(Все основные|All core)/i.test(l)) certificates[group].push(l);
       }
     }
 
@@ -81,7 +203,7 @@
     if (contactIdx >= 0) {
       for (let i = contactIdx + 1; i < lines.length; i++) {
         const l = lines[i];
-        if (l.startsWith('Я всегда') || l.startsWith('Всегда рад')) continue;
+        if (/^(Я всегда|Всегда рад|Always available|Happy to discuss)/i.test(l)) continue;
         if (/^https?:\/\//.test(l)) {
           contacts.push({
             type: 'link',
@@ -91,7 +213,7 @@
         } else if (l.includes('@')) {
           contacts.push({ type: 'email', value: l, label: 'Email' });
         } else if (/[\d()]/.test(l)) {
-          contacts.push({ type: 'phone', value: l, label: 'Телефон' });
+          contacts.push({ type: 'phone', value: l, label: UI.phone });
         }
       }
     }
@@ -113,7 +235,7 @@
     const cleanMetaPrefix = (text) =>
       String(text || '')
         .replace(/^[-–•*]\s*/, '')
-        .replace(/^(Клиент:|Ситуация:|Проблема:|Контекст:|Задача:)\s*/i, '')
+        .replace(/^(Клиент:|Client:|Ситуация:|Situation:|Проблема:|Problem:|Контекст:|Context:|Задача:|Task:)\s*/i, '')
         .trim();
 
     const desc = cleanMetaPrefix(c.description);
@@ -121,8 +243,9 @@
 
     const paras = c.content.split('\n').map((l) => l.trim()).filter(Boolean);
     for (const p of paras) {
-      if (/^(Клиент:|Сайт:|Кейс:|Кейс \d+:|Landing)/i.test(p)) continue;
-      if (/^(Задачи:|Каналы|География|Период|\*|\d+\.)/i.test(p)) continue;
+      if (/^(Клиент:|Client:|Сайт:|Site:|Кейс:|Case:|Кейс \d+:|Case \d+:|Landing)/i.test(p)) continue;
+      if (/^(Задачи:|Tasks:|Каналы|Channels|География|Ad geography|Geography|Период|Case period|Period|\*|\d+\.)/i.test(p))
+        continue;
       const clean = cleanMetaPrefix(p);
       if (clean.length > 40) return truncate(clean, 140);
     }
@@ -137,7 +260,7 @@
 
   function displayTitle(c) {
     if (c.title === 'Landing') {
-      return 'Продуктовые лендинги: от воронки до UX/UI';
+      return UI.landingsTitle;
     }
     return c.title;
   }
@@ -152,16 +275,24 @@
 
     const metaKeys = {
       'Клиент:': 'client',
+      'Client:': 'client',
       'Сайт:': 'site',
+      'Site:': 'site',
       'Каналы и инструменты:': 'tools',
+      'Channels and tools:': 'tools',
       'География показа рекламы:': 'geo',
       'География показа:': 'geo',
+      'Ad geography:': 'geo',
+      'Geography:': 'geo',
       'Период кейса:': 'period',
+      'Case period:': 'period',
+      'Period:': 'period',
       'Задача:': 'task',
+      'Task:': 'task',
     };
 
     const isResultsHeading = (line) =>
-      /^(результаты(?:\s|$|:| теста| и | за)|результат(?:\s+за\b|:)|итоговые\s+результаты|итог(?:овые)?(?:\s|$|:)|главный бизнес|блок цифр)/i.test(
+      /^(результаты(?:\s|$|:| теста| и | за)|результат(?:\s+за\b|:)|итоговые\s+результаты|итог(?:овые)?(?:\s|$|:)|главный бизнес|блок цифр|results(?:\s|$|:| for| of| test)|final\s+results|test\s+results)/i.test(
         line
       );
 
@@ -174,12 +305,12 @@
 
     const isSolutionExitFromTasks = (line) =>
       isResultsHeading(line) ||
-      /^(Трудности|Шаг|Стратегия|Подготов|С чего|Проблема|Ситуация|Контекст|Действия|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Реализация|Вводные|На старте|Запустил|Новый филиал|В \d{4}|Отказ от)/i.test(
+      /^(Трудности|Шаг|Стратегия|Подготов|С чего|Проблема|Ситуация|Контекст|Действия|Что сделал|Как шла|Нюансы|Аналитика|Разработка|Проектирование|Масштаб|Запуск|Реализация|Вводные|На старте|Запустил|Новый филиал|В \d{4}|Отказ от|Challenges|Step|Strategy|Preparation|Problem|Situation|Context|Actions|Analytics|Development|Design|Scale|Launch|Implementation|At the start|In \d{4})/i.test(
         line
       );
 
     for (const p of paras) {
-      if (/^Кейс:/i.test(p) || /^Кейс \d+:/i.test(p)) continue;
+      if (/^(Кейс:|Case:)/i.test(p) || /^(Кейс|Case) \d+:/i.test(p)) continue;
 
       const bare = p.replace(/^[-–•*]\s*/, '');
 
@@ -195,7 +326,7 @@
       }
       if (matched) continue;
 
-      if (bare.startsWith('Задачи:')) {
+      if (/^(Задачи:|Tasks:)/i.test(bare)) {
         section = 'tasks';
         tasksBuffer = [];
         continue;
@@ -237,7 +368,7 @@
     const escaped = esc(text);
     let used = false;
     return escaped.replace(
-      /(\d[\d\s]*[.,]?\d*\s*(?:₽|%)|в\s+\d+(?:[.,]\d+)?\s*раза?|\d+\s*×)/i,
+      /(\d[\d\s]*[.,]?\d*\s*(?:₽|%)|в\s+\d+(?:[.,]\d+)?\s*раза?|\d+(?:[.,]\d+)?\s*×|\d+\s*x\b)/i,
       (match) => {
         if (used) return match;
         used = true;
@@ -253,7 +384,8 @@
         .replace(/^[-–•*]\s*/, '')
         .trim();
       if (!clean) continue;
-      if (/^(результаты|итог\b|итоговые)/i.test(clean) && clean.length < 100) continue;
+      if (/^(результаты|итог\b|итоговые|results|final results|test results)/i.test(clean) && clean.length < 100)
+        continue;
 
       let label = '';
       let body = clean;
@@ -298,7 +430,7 @@
     if (!items.length) return '';
     return `
       <div class="sidebar-highlights">
-        <div class="sidebar-highlights-title">Ключевые результаты</div>
+        <div class="sidebar-highlights-title">${esc(UI.keyResults)}</div>
         <div class="sidebar-highlights-grid">
           ${items
             .map(
@@ -320,13 +452,19 @@
     if (!clean) return '';
 
     if (
-      /^(результаты теста|итоговые результаты(?:\s+проекта)?|итоговые результаты за)/i.test(clean) &&
+      /^(результаты теста|итоговые результаты(?:\s+проекта)?|итоговые результаты за|test results|final results(?:\s+for)?)/i.test(
+        clean
+      ) &&
       clean.length < 100
     ) {
       return `<h4 class="modal-subhead">${esc(clean.replace(/:$/, ''))}</h4>`;
     }
 
-    if (/^(результат|итог|итоговые результаты)\b/i.test(clean) && clean.length < 48 && !/\d/.test(clean)) {
+    if (
+      /^(результат|итог|итоговые результаты|results|final results)\b/i.test(clean) &&
+      clean.length < 48 &&
+      !/\d/.test(clean)
+    ) {
       return '';
     }
 
@@ -371,10 +509,13 @@
     const metrics = [];
     const seen = new Set();
     const patterns = [
-      [/(\d[\d\s,\.+]*)\s*(?:уникальных?\s*)?(?:лидов?|заявок?|заявки)\b/gi, 'лидов'],
-      [/(?:CPL|цена за(?:явку| лид))[:\s]*(\d[\d\s,\.]*)\s*(?:руб\.?|₽)/gi, 'CPL'],
-      [/(\d[\d,\.\s]*(?:млн|млрд))\s*₽/gi, 'оборот'],
-      [/(?:конверси[яи]|Open Rate|открыти[яй])[:\s]*\+?(\d[\d,\.]*)\s*%/gi, 'конверсия'],
+      [/(\d[\d\s,\.+]*)\s*(?:уникальных?\s*|unique\s*)?(?:лидов?|заявок?|заявки|leads?)\b/gi, UI.metricLabels.leads],
+      [/(?:CPL|цена за(?:явку| лид)|cost per lead)[:\s]*(\d[\d\s,\.]*)\s*(?:руб\.?|₽)/gi, UI.metricLabels.cpl],
+      [/(\d[\d,\.\s]*(?:млн|млрд|mln|bn))\s*₽/gi, UI.metricLabels.revenue],
+      [
+        /(?:конверси[яи]|conversion|Open Rate|открыти[яй])[:\s]*\+?(\d[\d,\.]*)\s*%/gi,
+        UI.metricLabels.conversion,
+      ],
       [/(\d[\d,\.]*)\s*%/g, '%'],
     ];
 
@@ -399,56 +540,31 @@
   }
 
   function getCoverMetric(c) {
-    const highlights = {
-      'performance-1': { value: '2×', label: 'дешевле агентств', sub: 'A/B in-house' },
-      'performance-baltlease': { value: '10 280', label: 'целевых лидов', sub: 'CPA 4 646 ₽ · CPL 6 179 ₽' },
-      'performance-2': { value: '110+', label: 'лидов в месяц', sub: 'CPL 215 ₽' },
-      'performance-3': { value: '15', label: 'лидов · старт с нуля', sub: 'CPL 466 ₽' },
-      'performance-4': { value: '278', label: 'уникальных лидов', sub: 'CPL 253 ₽ · CR 11%' },
-      'performance-5': { value: '30+', label: 'лидов за месяц', sub: 'CPL 433 ₽' },
-      'performance-6': { value: '7', label: 'лидов · B2B с нуля', sub: 'CPL 1 648 ₽' },
-      'performance-7': { value: '81', label: 'B2B-лидов за месяц', sub: 'CPL 411 ₽' },
-      'performance-8': { value: '99', label: 'заявок на ремонт', sub: 'CPL 836 ₽' },
-      'performance-9': { value: '529', label: 'лидов на курсы 1С', sub: 'CPL 483 ₽' },
-      'performance-10': { value: '+333%', label: 'рост аудитории', sub: '600 → 2 600' },
-      'analytics-11': { value: '40%', label: 'атрибуции восстановлено' },
-      'web-seo-12': { value: '+900%', label: 'рост визитов' },
-      'web-seo-13': { value: 'TOP-3', label: 'поисковая выдача' },
-      'web-seo-14': { value: '+67%', label: 'рост лидов' },
-      'web-seo-15': { value: 'UX/UI', label: 'лендинги под ключ' },
-      'crm-email-16': { value: '104 млн', label: 'нового бизнеса' },
-      'serm-ai-17': { value: '0 ₽', label: 'бюджет продакшена' },
-      'serm-ai-18': { value: 'SERM', label: 'цифровой актив' },
-    };
-    if (highlights[c.id]) return highlights[c.id];
+    if (UI.cover[c.id]) return UI.cover[c.id];
 
     const metrics = extractMetrics(`${c.title}\n${c.content}`);
     if (metrics.length) {
-      const leads = metrics.find((m) => m.label === 'лидов');
-      const cpl = metrics.find((m) => m.label === 'CPL');
-      const conv = metrics.find((m) => m.label === 'конверсия' || m.label === '%');
+      const leads = metrics.find((m) => m.label === UI.metricLabels.leads);
+      const cpl = metrics.find((m) => m.label === UI.metricLabels.cpl || m.label === 'CPL');
+      const conv = metrics.find((m) => m.label === UI.metricLabels.conversion || m.label === '%');
       if (leads && cpl) {
         return {
           value: leads.value,
-          label: 'лидов',
+          label: UI.metricLabels.leads,
           sub: `CPL ${cpl.value} ₽${conv ? ` · CR ${conv.value}%` : ''}`,
         };
       }
       const metric = metrics[0];
       const suffix =
-        metric.label === 'CPL' ? ' ₽' :
-        metric.label === '%' || metric.label === 'конверсия' ? '%' : '';
+        metric.label === UI.metricLabels.cpl || metric.label === 'CPL'
+          ? ' ₽'
+          : metric.label === '%' || metric.label === UI.metricLabels.conversion
+            ? '%'
+            : '';
       return { value: `${metric.value}${suffix}`, label: metric.label };
     }
 
-    const fallback = {
-      performance: { value: 'PPC', label: 'performance' },
-      analytics: { value: 'B2B', label: 'analytics' },
-      'web-seo': { value: 'SEO', label: 'web & search' },
-      'crm-email': { value: 'CRM', label: 'retention' },
-      'serm-ai': { value: 'AI', label: 'innovation' },
-    };
-    return fallback[c.category] || { value: '01', label: c.categoryName };
+    return UI.coverFallback[c.category] || { value: '01', label: c.categoryName };
   }
 
   function coverHTML(c, index) {
@@ -472,7 +588,7 @@
         </div>
         <div class="cover-footer">
           <span>CASE STUDY</span>
-          <img src="assets/signature.png?v=2" alt="" class="cover-signature" aria-hidden="true">
+          <img src="${esc(asset('assets/signature.png?v=2'))}" alt="" class="cover-signature" aria-hidden="true">
         </div>
       </div>`;
   }
@@ -561,7 +677,7 @@
     const grid = document.getElementById('cards-grid');
 
     if (!filtered.length) {
-      grid.innerHTML = `<p class="text-muted col-span-full py-12 text-center">В этой категории пока нет кейсов</p>`;
+      grid.innerHTML = `<p class="text-muted col-span-full py-12 text-center">${esc(UI.emptyCategory)}</p>`;
       return;
     }
 
@@ -576,7 +692,7 @@
           data-id="${esc(c.id)}"
           tabindex="0"
           role="button"
-          aria-label="Открыть кейс: ${esc(displayTitle(c))}"
+          aria-label="${esc(UI.openCase)}: ${esc(displayTitle(c))}"
         >
           <div class="card-cover-wrap">
             ${coverHTML(c, i)}
@@ -592,7 +708,7 @@
             <h3>${esc(displayTitle(c))}</h3>
             <p class="text-sm leading-relaxed line-clamp-2 mb-5">${esc(summary)}</p>
             <div class="card-index">
-              <span>Подробнее</span>
+              <span>${esc(UI.readMore)}</span>
               <span aria-hidden="true">↗</span>
             </div>
           </div>
@@ -616,7 +732,7 @@
   function renderExperience(list) {
     const root = document.getElementById('experience-list');
     if (!list.length) {
-      root.innerHTML = '<p class="text-muted">Опыт будет добавлен позже</p>';
+      root.innerHTML = `<p class="text-muted">${esc(UI.emptyExperience)}</p>`;
       return;
     }
 
@@ -636,8 +752,8 @@
 
   function renderCertificates(certs) {
     const groups = [
-      { key: 'yandex', label: 'Яндекс' },
-      { key: 'google', label: 'Google' },
+      { key: 'yandex', label: UI.yandex },
+      { key: 'google', label: UI.google },
     ];
     let html = '';
     for (const g of groups) {
@@ -841,7 +957,7 @@
     lastFocusedElement = document.activeElement;
 
     const { meta, solution, results } = parseCaseContent(c.content);
-    const images = c.images || [];
+    const images = (c.images || []).map(asset);
     const labels = c.imageLabels || [];
 
     document.getElementById('modal-category').textContent = c.categoryName;
@@ -853,11 +969,13 @@
 
     const gallery = document.getElementById('modal-gallery');
     const galleryWrap = document.getElementById('modal-gallery-wrap');
+    const galleryTitle = document.querySelector('#modal-gallery-wrap h4');
+    if (galleryTitle) galleryTitle.textContent = UI.materials;
     if (images.length) {
       galleryWrap.classList.remove('hidden');
       gallery.innerHTML = images
         .map((src, idx) => {
-          const label = labels[idx] || `Иллюстрация ${idx + 1}`;
+          const label = labels[idx] || `${UI.illustration} ${idx + 1}`;
           return `
           <figure class="gallery-thumb group" data-src="${esc(src)}" data-alt="${esc(label)}" title="${esc(label)}">
             <div class="gallery-thumb-frame">
@@ -878,17 +996,17 @@
 
     document.getElementById('modal-sidebar').innerHTML = `
       <dl class="space-y-6 bg-highlight rounded-2xl border border-line p-6">
-        ${sidebarField('Направление', c.categoryName)}
-        ${sidebarField('Клиент', meta.client)}
-        ${sidebarField('Сайт', meta.site)}
+        ${sidebarField(UI.direction, c.categoryName)}
+        ${sidebarField(UI.client, meta.client)}
+        ${sidebarField(UI.site, meta.site)}
       </dl>
       ${renderSidebarHighlights(results)}`;
 
     const briefBlocks = [
-      ['Задача', meta.task || meta.tasks],
-      ['Инструменты', meta.tools],
-      ['География', meta.geo],
-      ['Период', meta.period],
+      [UI.task, meta.task || meta.tasks],
+      [UI.tools, meta.tools],
+      [UI.geo, meta.geo],
+      [UI.period, meta.period],
     ]
       .filter(([, value]) => value)
       .map(([label, value]) => {
@@ -961,7 +1079,7 @@
 
     const resultsHtml = results.length
       ? `<div class="modal-results">
-          <h3 class="modal-section-title">Результаты</h3>
+          <h3 class="modal-section-title">${esc(UI.results)}</h3>
           <div class="results-grid">
             ${results.map((p) => renderResultItem(p)).join('')}
           </div>
@@ -973,12 +1091,12 @@
         ${
           briefBlocks
             ? `<div class="modal-brief">
-                <h3 class="modal-section-title">Контекст</h3>
+                <h3 class="modal-section-title">${esc(UI.context)}</h3>
                 <div class="modal-solution">${briefBlocks}</div>
               </div>`
             : ''
         }
-        <h3 class="modal-section-title">Решение</h3>
+        <h3 class="modal-section-title">${esc(UI.solution)}</h3>
         <div class="modal-solution">${solutionHtml || `<p class="modal-body">${esc(c.description)}</p>`}</div>
         ${resultsHtml}
       </div>`;
@@ -1003,9 +1121,13 @@
   }
 
   function initModal() {
-    document.getElementById('modal-close').addEventListener('click', closeModal);
+    const modalClose = document.getElementById('modal-close');
+    const lightboxClose = document.getElementById('lightbox-close');
+    if (modalClose) modalClose.setAttribute('aria-label', UI.close);
+    if (lightboxClose) lightboxClose.setAttribute('aria-label', UI.close);
+    modalClose.addEventListener('click', closeModal);
     document.getElementById('modal-backdrop').addEventListener('click', closeModal);
-    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
     document.getElementById('lightbox').addEventListener('click', (e) => {
       if (e.target.id === 'lightbox') closeLightbox();
     });
