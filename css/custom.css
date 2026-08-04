@@ -2154,7 +2154,8 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     right: auto;
     width: auto;
     max-width: none;
-    height: 108%;
+    /* Slightly less vertical crop so the head isn't flush with the top edge */
+    height: 104%;
     transform: translate3d(-50%, var(--portrait-y, 0), 0);
   }
   .hero-copy {
@@ -2221,7 +2222,8 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     min-height: 20rem;
   }
   .portrait-frame img {
-    height: 122%;
+    /* Чуть больше воздуха над головой на телефонах */
+    height: 114%;
   }
   .hero-meta { margin-bottom: 2rem; }
   .hero-meta span:last-child { display: none; }
