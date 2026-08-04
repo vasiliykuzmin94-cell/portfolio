@@ -122,6 +122,7 @@ body {
   align-items: center;
   gap: 0.85rem;
   flex-shrink: 0;
+  margin-left: 0.75rem;
 }
 
 .lang-switch {
@@ -1010,6 +1011,14 @@ main,
   gap: 0.75rem;
   font-size: 0.78rem;
   font-weight: 600;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.brand-lockup span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .brand-mark {
@@ -2083,6 +2092,40 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
 }
 
 @media (max-width: 767px) {
+  .site-header .max-w-site {
+    gap: 0.5rem;
+  }
+
+  .brand-lockup {
+    gap: 0.45rem;
+    max-width: calc(100% - 10.5rem);
+  }
+
+  .brand-lockup span {
+    display: none; /* signature is enough on narrow phones */
+  }
+
+  .brand-signature {
+    width: 3.6rem;
+    height: 2.3rem;
+  }
+
+  .header-actions {
+    gap: 0.5rem;
+    margin-left: 0;
+  }
+
+  .lang-switch {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  .header-actions .btn-primary {
+    min-height: 40px;
+    padding: 0 0.9rem;
+    font-size: 0.8rem;
+  }
+
   .hero-section {
     padding-top: 2.25rem;
     padding-bottom: 2.25rem;
@@ -2104,18 +2147,44 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
   .hero-tags { margin-top: 0.5rem; }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat-card {
+    min-width: 0;
     min-height: 9rem;
-    padding: 1.4rem;
+    padding: 1.15rem 0.85rem;
+    overflow: hidden;
+  }
+  /* Wide metric needs full row — keep font size, give horizontal room */
+  .stat-card:nth-child(4) {
+    grid-column: 1 / -1;
   }
   .stat-value {
     margin-bottom: 1.5rem;
     font-size: clamp(2.1rem, 8.5vw, 3.1rem);
   }
+  .stat-number-accent {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
   .section-head {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    min-width: 0;
+    max-width: 100%;
   }
-  .section-title { font-size: clamp(2.4rem, 16vw, 4.6rem); }
+  .section-title {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(1.85rem, 9.2vw, 2.65rem);
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  .contact-statement h2 {
+    font-size: clamp(2rem, 11vw, 3.4rem);
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
   .work-grid { grid-template-columns: 1fr; }
   .card-item:nth-child(even) { margin-top: 0; }
   .experience-item {
@@ -2123,7 +2192,6 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     gap: 0.75rem;
     padding: 1.5rem 0.5rem;
   }
-  .contact-statement h2 { font-size: clamp(2.4rem, 14vw, 5rem); }
 }
 
 @media (hover: none), (pointer: coarse) {
