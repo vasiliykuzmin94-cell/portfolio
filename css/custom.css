@@ -343,8 +343,7 @@ body {
 
 /* —— Tabs —— */
 .tabs-sticky {
-  position: sticky;
-  top: 64px;
+  position: relative;
   z-index: 40;
   padding: 0.7rem 0;
   background: rgba(13, 13, 14, 0.88);
@@ -876,7 +875,6 @@ body {
 
 html {
   background: var(--canvas);
-  overflow-x: clip;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--accent) 72%, #6a8a1a) transparent;
 }
@@ -884,7 +882,6 @@ html {
 body {
   background: var(--canvas);
   color: var(--ink);
-  overflow-x: hidden;
 }
 
 /* Custom scrollbar — lime accent */
@@ -1493,9 +1490,20 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
   pointer-events: none;
 }
 
+.tabs-sticky-placeholder {
+  display: none;
+  width: 100%;
+  margin: 0 0 1.5rem;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.tabs-sticky-placeholder.is-active {
+  display: block;
+}
+
 .tabs-sticky {
-  position: sticky;
-  top: 64px;
+  position: relative;
   z-index: 40;
   margin: 0 0 1.5rem;
   padding: 0.7rem 0;
@@ -1507,9 +1515,43 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
 }
 
 .tabs-sticky.is-stuck {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  z-index: 45;
+  box-sizing: border-box;
   border-bottom-color: var(--line);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-  background: rgba(13, 13, 14, 0.94);
+  background: rgba(13, 13, 14, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.tabs-sticky.is-stuck .tabs-row {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .tabs-sticky.is-stuck .tabs-row {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tabs-sticky.is-stuck .tabs-row {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 .tabs-row { gap: 0; }

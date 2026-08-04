@@ -1209,20 +1209,72 @@
   function initTabsSticky() {
     const sticky = document.querySelector('.tabs-sticky');
     const sentinel = document.querySelector('.tabs-sticky-sentinel');
-    if (!sticky || !sentinel || !('IntersectionObserver' in window)) return;
+    const cases = document.getElementById('cases');
+    const header = document.querySelector('.site-header');
+    if (!sticky || !sentinel || !cases) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        sticky.classList.toggle('is-stuck', !entry.isIntersecting);
-      },
-      {
-        // Match sticky offset under the site header (64px).
-        rootMargin: '-64px 0px 0px 0px',
-        threshold: 0,
+    let placeholder = sticky.previousElementSibling;
+    if (!placeholder || !placeholder.classList.contains('tabs-sticky-placeholder')) {
+      placeholder = document.createElement('div');
+      placeholder.className = 'tabs-sticky-placeholder';
+      placeholder.setAttribute('aria-hidden', 'true');
+      sticky.parentNode.insertBefore(placeholder, sticky);
+    }
+
+    let stuck = false;
+    let raf = 0;
+
+    const headerOffset = () =>
+      header ? Math.round(header.getBoundingClientRect().height) || 64 : 64;
+
+    const stick = () => {
+      if (stuck) return;
+      const height = sticky.offsetHeight;
+      placeholder.style.height = `${height}px`;
+      placeholder.classList.add('is-active');
+      sticky.classList.add('is-stuck');
+      sticky.style.top = `${headerOffset()}px`;
+      stuck = true;
+    };
+
+    const unstick = () => {
+      if (!stuck) return;
+      sticky.classList.remove('is-stuck');
+      sticky.style.top = '';
+      placeholder.classList.remove('is-active');
+      placeholder.style.height = '';
+      stuck = false;
+    };
+
+    const update = () => {
+      const offset = headerOffset();
+      const sentinelTop = sentinel.getBoundingClientRect().top;
+      const casesBottom = cases.getBoundingClientRect().bottom;
+      const barHeight = sticky.offsetHeight;
+
+      // Pin under header while sentinel has passed it; release past #cases end.
+      const shouldStick = sentinelTop <= offset && casesBottom > offset + barHeight;
+
+      if (shouldStick) {
+        stick();
+        sticky.style.top = `${offset}px`;
+        placeholder.style.height = `${sticky.offsetHeight}px`;
+      } else {
+        unstick();
       }
-    );
+    };
 
-    observer.observe(sentinel);
+    const onScrollOrResize = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    update();
   }
 
   const parsed = parseMain();
