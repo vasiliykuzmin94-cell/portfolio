@@ -1,10 +1,24 @@
 @import "tailwindcss";
 
 @source "../index.html";
+@source "../en/index.html";
 @source "../js/**/*.js";
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Unbounded", "Manrope", sans-serif;
+
+  --color-canvas: #0d0d0e;
+  --color-surface: #151516;
+  --color-highlight: #202023;
+  --color-ink: #f1f0eb;
+  --color-muted: #929296;
+  --color-line: #2b2b2e;
+
+  --max-width-site: 1600px;
+
+  --shadow-card: 0 1px 2px rgba(20, 20, 20, 0.03), 0 12px 28px rgba(20, 20, 20, 0.04);
+  --shadow-soft: 0 20px 50px rgba(20, 20, 20, 0.07);
 }
 
 .card-enter {

@@ -1139,73 +1139,6 @@
     });
   }
 
-  function initGrain() {
-    const canvas = document.getElementById('grain-canvas');
-    const layer = document.querySelector('.noise-layer');
-    if (!canvas || !layer) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-
-    let frame = 0;
-    let raf = 0;
-    let w = 0;
-    let h = 0;
-
-    const resize = () => {
-      // Higher buffer ≈ finer grain (less upscaling).
-      const scale = Math.min(1, 720 / Math.max(window.innerWidth, 1));
-      w = Math.max(320, Math.floor(window.innerWidth * scale));
-      h = Math.max(180, Math.floor(window.innerHeight * scale));
-      canvas.width = w;
-      canvas.height = h;
-      paint();
-    };
-
-    const paint = () => {
-      const image = ctx.createImageData(w, h);
-      const data = image.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        data[i] = v;
-        data[i + 1] = v;
-        data[i + 2] = v;
-        data[i + 3] = 255;
-      }
-      ctx.putImageData(image, 0, 0);
-    };
-
-    const loop = () => {
-      frame += 1;
-      // Every other frame keeps it lively without burning CPU.
-      if (frame % 2 === 0) paint();
-      raf = requestAnimationFrame(loop);
-    };
-
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
-
-    if (reduceMotion) {
-      paint();
-      return;
-    }
-
-    raf = requestAnimationFrame(loop);
-    document.addEventListener(
-      'visibilitychange',
-      () => {
-        if (document.hidden) {
-          cancelAnimationFrame(raf);
-          raf = 0;
-        } else if (!raf) {
-          raf = requestAnimationFrame(loop);
-        }
-      },
-      { passive: true }
-    );
-  }
-
   function initTabsSticky() {
     const sticky = document.querySelector('.tabs-sticky');
     const sentinel = document.querySelector('.tabs-sticky-sentinel');
@@ -1286,5 +1219,4 @@
   initNavSpy();
   initTabsSticky();
   initMotion();
-  initGrain();
 })();

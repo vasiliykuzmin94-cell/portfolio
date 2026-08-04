@@ -193,13 +193,13 @@ const PORTFOLIO_DATA = {
       "title": "99 leads at 836 ₽ for turnkey apartment renovations",
       "description": "Turnkey renovation: Turbo pages and a budget shift to Google — 99 leads at 836 ₽.",
       "content": "Case: 99 leads at 836 ₽ for turnkey apartment renovations\nClient: Design Modern — renovation and finishing of apartments, houses, and commercial spaces.\nSite: dizaynmodern.ru\nTasks:\n* Attract a high-ticket audience (turnkey renovation)\n* Increase form, call, and email leads\n\nChannels and tools: Yandex Direct, Google Ads, Yandex Metrica, eLama, Yandex Turbo pages\nAd geography: Mari El Republic\nCase period: 1 month (launch stage from August 2020)\n\n* Bypass a weak main site: Instead of a long rebuild, quickly launched Turbo pages and focused on high-margin services.\n* Retargeting: Re-engaged users who spent 30+ seconds on the page with an offer for the researched service.\n* Budget reallocation: Shifted spend from overheated Yandex into Google (Search + Display + search remarketing) and regularly cleaned placements.\nFinal results:\n* Traffic: 2,413\n* Leads: 99\n* CPL: 836 ₽\n* Lead conversion: 4%\n",
-      "cover": "assets/cases/performance-8/cover-01.png",
+      "cover": "assets/cases/performance-8/cover-01.webp",
       "images": [
-        "assets/cases/performance-8/cover-01.png",
+        "assets/cases/performance-8/cover-01.webp",
         "assets/cases/performance-8/cover-02.png",
         "assets/cases/performance-8/cover-03.png",
         "assets/cases/performance-8/cover-04.png",
-        "assets/cases/performance-8/cover-05.png",
+        "assets/cases/performance-8/cover-05.webp",
         "assets/cases/performance-8/cover-06.png"
       ],
       "imageLabels": [
@@ -233,11 +233,11 @@ const PORTFOLIO_DATA = {
       "title": "Telegram relaunch: growing the channel from 600 to 2,600 subscribers",
       "description": "Telegram relaunch: from 600 to 2,600 subscribers via content pillars, branch activation, and referral loops.",
       "content": "Case: Telegram relaunch: growing the channel from 600 to 2,600 subscribers\n\nFound a clear lag vs competitors on Telegram: 600 subscribers, no content plan, and no sync with PR.\n* Strategic relaunch: Mapped business goals into social and introduced regular pillars — special-offer digests and daily Stories with offers.\n* Cross-functional work: Synced with equipment suppliers and secured content and exclusive offers from them.\n* Growth loops: Launched gamification across 80 branches, email invites to the database, and a referral contest for subscribers.\nResults:\n* Audience growth: 2,600 — from 600 subscribers (+333%).\n* Branch-driven growth: 800\n* Email-driven growth: 150\n* Referral-driven growth: 1,000\n",
-      "cover": "assets/cases/performance-10/cover-01.png",
+      "cover": "assets/cases/performance-10/cover-01.webp",
       "images": [
-        "assets/cases/performance-10/cover-01.png",
-        "assets/cases/performance-10/cover-02.png",
-        "assets/cases/performance-10/cover-03.png"
+        "assets/cases/performance-10/cover-01.webp",
+        "assets/cases/performance-10/cover-02.webp",
+        "assets/cases/performance-10/cover-03.webp"
       ],
       "imageLabels": [
         "Contest example 1",
@@ -263,10 +263,10 @@ const PORTFOLIO_DATA = {
       "title": "Building the new corporate website avtorsoft.ru from scratch",
       "description": "Corporate site on ASPRO instead of an agency: IA, content, and SEO from scratch — 9× visit growth.",
       "content": "Case: Building the new corporate website avtorsoft.ru from scratch\n\nTilda landing pages kept paid ads alive, but SEO traffic was leaking and the agency build kept slipping. Proposed building the site in-house on ASPRO (1C-Bitrix) over a year on a 120,000 ₽ budget.\n* Information architecture: Mapped the site tree and collected requirements from practice leads.\n* Content and SEO: Wrote copy and meta tags for 100+ pages, including product catalogs.\n* Build and design: Deployed ASPRO, adapted it to the brand guidelines, filled content, and designed banners.\n* Launch: Finished technical SEO prep, set redirects, and shipped to production.\nResults:\n* Visit and engagement growth: 900% — one year after launch vs the prior period.\n",
-      "cover": "assets/cases/web-seo-12/cover-02.png",
+      "cover": "assets/cases/web-seo-12/cover-02.webp",
       "images": [
-        "assets/cases/web-seo-12/cover-01.jpg",
-        "assets/cases/web-seo-12/cover-02.png",
+        "assets/cases/web-seo-12/cover-01.webp",
+        "assets/cases/web-seo-12/cover-02.webp",
         "assets/cases/web-seo-12/cover-03.png"
       ],
       "imageLabels": [
@@ -312,10 +312,10 @@ const PORTFOLIO_DATA = {
       "title": "Product landing pages: from funnel logic to UX/UI",
       "description": "End-to-end product landing pages: from funnel logic and copy to UX/UI and launch.",
       "content": "Case: Product landing pages: from funnel logic to UX/UI\n\n* Funnel and offer: Structure the page around the business goal — lead, application, or warm-up to a consult.\n* Copy: Write each block so every screen answers one user question.\n* UX/UI and prototype: Shape the user path, prototype, and visual presentation for the brand and traffic channel.\n* Launch: Hand off to frontend/Tilda, connect forms to analytics, and prepare the page for paid and organic traffic.\nResults:\n* End-to-end workflow: 1 process — from funnel hypothesis to a live landing page without a gap between marketing and design.\n",
-      "cover": "assets/cases/web-seo-15/cover-01.jpg",
+      "cover": "assets/cases/web-seo-15/cover-01.webp",
       "images": [
-        "assets/cases/web-seo-15/cover-01.jpg",
-        "assets/cases/web-seo-15/cover-02.jpg"
+        "assets/cases/web-seo-15/cover-01.webp",
+        "assets/cases/web-seo-15/cover-02.webp"
       ],
       "imageLabels": [
         "Landing page screenshot — mobile",
@@ -329,10 +329,10 @@ const PORTFOLIO_DATA = {
       "title": "Building CRM marketing and retention from scratch",
       "description": "CRM and retention from scratch on a 32,000-contact database: segmentation, Mailganer, and +104M ₽ in new business.",
       "content": "Case: Building CRM marketing and retention from scratch\n\nThe database held about 32,000 contacts, but outreach was rare mass blasts via SAP CRM with weak analytics.\n* Segmentation: Split the database by industry codes (OKVED), asset types, and client statuses — moved to targeted messaging.\n* Lifecycle programs: Launched partner offers, best-deal digests, and government subsidy campaigns.\n* Infrastructure: Initiated the move from SAP CRM to Mailganer for transparent reporting and testing.\n* Tests and automation: Subject-line A/B lifted Open Rate by +4.5%; drip follow-ups — +20% unique opens and +16% clicks.\nResults for the year:\n* New business: 104M ₽\n* Qualified leads: 677\n* Contracts: 32\n* Contract conversion: 5%\n",
-      "cover": "assets/cases/crm-email-16/cover-02.png",
+      "cover": "assets/cases/crm-email-16/cover-02.webp",
       "images": [
-        "assets/cases/crm-email-16/cover-01.png",
-        "assets/cases/crm-email-16/cover-02.png"
+        "assets/cases/crm-email-16/cover-01.webp",
+        "assets/cases/crm-email-16/cover-02.webp"
       ],
       "imageLabels": [
         "Email screenshot BEFORE",
