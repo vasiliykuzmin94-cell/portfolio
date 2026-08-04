@@ -1209,9 +1209,8 @@
   function initTabsSticky() {
     const sticky = document.querySelector('.tabs-sticky');
     const sentinel = document.querySelector('.tabs-sticky-sentinel');
-    const cases = document.getElementById('cases');
     const header = document.querySelector('.site-header');
-    if (!sticky || !sentinel || !cases) return;
+    if (!sticky || !sentinel) return;
 
     let placeholder = sticky.previousElementSibling;
     if (!placeholder || !placeholder.classList.contains('tabs-sticky-placeholder')) {
@@ -1249,13 +1248,9 @@
     const update = () => {
       const offset = headerOffset();
       const sentinelTop = sentinel.getBoundingClientRect().top;
-      const casesBottom = cases.getBoundingClientRect().bottom;
-      const barHeight = sticky.offsetHeight;
 
-      // Pin under header while sentinel has passed it; release past #cases end.
-      const shouldStick = sentinelTop <= offset && casesBottom > offset + barHeight;
-
-      if (shouldStick) {
+      // Pin under header once sentinel passes it; unstick only on scroll back up.
+      if (sentinelTop <= offset) {
         stick();
         sticky.style.top = `${offset}px`;
         placeholder.style.height = `${sticky.offsetHeight}px`;
