@@ -2097,33 +2097,43 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
   }
 
   .brand-lockup {
-    gap: 0.45rem;
-    max-width: calc(100% - 10.5rem);
+    gap: 0.4rem;
+    max-width: calc(100% - 9.75rem);
+    min-width: 0;
   }
 
   .brand-lockup span {
-    display: none; /* signature is enough on narrow phones */
+    display: inline;
+    max-width: 100%;
+    font-size: 0.68rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .brand-signature {
-    width: 3.6rem;
-    height: 2.3rem;
+    width: 3.2rem;
+    height: 2rem;
+    flex-shrink: 0;
   }
 
   .header-actions {
-    gap: 0.5rem;
-    margin-left: 0;
+    gap: 0.4rem;
+    margin-left: 0.35rem;
   }
 
   .lang-switch {
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
   }
 
   .header-actions .btn-primary {
-    min-height: 40px;
-    padding: 0 0.9rem;
-    font-size: 0.8rem;
+    min-height: 38px;
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
   }
 
   .hero-section {
