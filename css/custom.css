@@ -1119,9 +1119,9 @@ main,
   position: relative;
   display: grid;
   /* Cap the copy column so fr-growth can't shove text and photo to opposite edges */
-  grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 40rem) minmax(0, 0.92fr);
   grid-template-rows: 1fr auto;
-  gap: 1.5rem clamp(1.25rem, 2.5vw, 2.75rem);
+  gap: 1.5rem clamp(1rem, 2vw, 2.25rem);
   width: 100%;
   align-items: stretch;
   min-height: calc(100svh - 7rem);
@@ -1133,7 +1133,7 @@ main,
   align-self: end;
   padding-top: clamp(4rem, 14vh, 9rem);
   padding-bottom: clamp(2rem, 6vh, 4.5rem);
-  max-width: 36rem;
+  max-width: 40rem;
 }
 
 .hero-meta {
@@ -1151,7 +1151,7 @@ main,
 }
 
 .hero-title {
-  max-width: 28rem;
+  max-width: 30.5rem;
   margin: 0 0 1.35rem;
   color: var(--ink);
   font-family: var(--display);
