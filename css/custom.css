@@ -26,6 +26,13 @@ body {
 .text-muted { color: var(--muted); }
 .border-line { border-color: var(--line); }
 
+/* Critical layout fallbacks if a Tailwind utility is missing from the build */
+.max-w-site {
+  max-width: 1600px;
+  width: 100%;
+}
+.mx-auto { margin-inline: auto; }
+
 ::selection {
   color: #fff;
   background: var(--ink);
@@ -1098,7 +1105,7 @@ main,
   outline-offset: 4px;
 }
 
-/* Hero */
+/* Hero — one coherent composition (copy + portrait), not edge-scattered */
 .hero-section {
   min-height: calc(100svh - 4rem);
   height: auto;
@@ -1111,9 +1118,10 @@ main,
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(400px, 1.08fr);
+  /* Cap the copy column so fr-growth can't shove text and photo to opposite edges */
+  grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
   grid-template-rows: 1fr auto;
-  gap: 2rem 1.25vw;
+  gap: 1.5rem clamp(1.25rem, 2.5vw, 2.75rem);
   width: 100%;
   align-items: stretch;
   min-height: calc(100svh - 7rem);
@@ -1122,9 +1130,10 @@ main,
 .hero-copy {
   position: relative;
   z-index: 2;
-  align-self: end;
-  padding-top: clamp(4rem, 14vh, 9rem);
-  padding-bottom: clamp(2rem, 6vh, 4.5rem);
+  align-self: center;
+  padding-top: clamp(1.25rem, 4vh, 3rem);
+  padding-bottom: clamp(1.25rem, 4vh, 3rem);
+  max-width: 36rem;
 }
 
 .hero-meta {
@@ -2099,8 +2108,8 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
 
 /* Responsive */
 @media (min-width: 1024px) {
+  /* Keep max-w-site — do NOT set max-width:none (that scattered hero to viewport edges) */
   .hero-section {
-    max-width: none;
     padding-right: 0 !important;
   }
 
@@ -2132,11 +2141,12 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     min-height: 0;
+    gap: 1.25rem;
   }
   .hero-visual {
     justify-self: stretch;
     width: 100%;
-    min-height: 30rem;
+    min-height: 22rem;
   }
   .hero-visual::after { display: none; }
   .portrait-frame img {
@@ -2149,7 +2159,8 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
   }
   .hero-copy {
     align-self: auto;
-    padding-top: 1.5rem;
+    max-width: none;
+    padding-top: 1rem;
     padding-bottom: 0;
   }
   .hero-tags { grid-column: 1; }
@@ -2207,7 +2218,7 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
     padding-bottom: 2.25rem;
   }
   .hero-visual {
-    min-height: 26rem;
+    min-height: 20rem;
   }
   .portrait-frame img {
     height: 122%;

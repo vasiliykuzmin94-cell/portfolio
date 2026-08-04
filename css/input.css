@@ -4,6 +4,9 @@
 @source "../en/index.html";
 @source "../js/**/*.js";
 
+/* Ensure hover / spacing utilities used in markup are always generated */
+@source inline("space-y-6 shadow-soft first:mt-0 hover:text-ink hover:bg-white/20 leading-[1.2] text-ink/80 bg-ink/40 bg-ink/90 bg-white/10");
+
 @theme {
   --font-sans: "Manrope", system-ui, sans-serif;
   --font-display: "Unbounded", "Manrope", sans-serif;
