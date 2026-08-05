@@ -49,6 +49,7 @@
           'crm-email-16': { value: '104M ₽', label: 'new business' },
           'serm-ai-17': { value: '0 ₽', label: 'production budget' },
           'serm-ai-18': { value: 'SERM', label: 'durable asset' },
+          'serm-ai-19': { value: '10–15 s', label: 'per image', sub: 'up to 20 per run' },
         },
         coverFallback: {
           performance: { value: 'PPC', label: 'performance' },
@@ -103,6 +104,7 @@
           'crm-email-16': { value: '104 млн', label: 'нового бизнеса' },
           'serm-ai-17': { value: '0 ₽', label: 'бюджет продакшена' },
           'serm-ai-18': { value: 'SERM', label: 'цифровой актив' },
+          'serm-ai-19': { value: '10–15 с', label: 'на одно фото', sub: 'до 20 за запуск' },
         },
         coverFallback: {
           performance: { value: 'PPC', label: 'performance' },

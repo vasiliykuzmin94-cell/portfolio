@@ -227,6 +227,17 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "serm-ai-19",
+      "category": "serm-ai",
+      "categoryName": "SERM & AI & SMM",
+      "title": "AI service for preparing equipment photos for publication",
+      "description": "MVP built with Cursor and Nano Banana: cleaning Baltliz equipment photos in 10–15 seconds — no Photoshop.",
+      "content": "Case: AI service for preparing equipment photos for publication\nClient: Baltliz\nCase period: 2026\n\nBaltliz lists repossessed equipment on its own site and Avito. Yard photos often included other vehicles, people, dirt, and visual clutter. Managers either spent time retouching by hand or published the shots as-is. A year earlier, IT had already tried to automate this — the tool did not survive real workloads. The need was a simple product that cleans the frame without distorting the equipment’s condition.\n* End-to-end MVP: Designed and shipped the service alone — from idea to a working product. Built it in Cursor, deployed it on a VPS, and wired image processing through Nano Banana — with no department budget and no engineering team.\n* Simple flow: Upload → Process → Download ZIP.\n* Background cleanup: Removes unwanted objects from the frame.\n* Commercial format: Normalizes photos to a consistent 4:3 layout and adds a semi-transparent Baltliz logo.\n* Quality check: Shows a before/after preview; processes up to 20 photos per run.\nResults:\n* Processing time: 10–15 seconds — per image.\n* Status: MVP is live and used by the team day to day — without Photoshop, manual retouching, or a dedicated development team.\n",
+      "cover": null,
+      "images": [],
+      "imageLabels": []
+    },
+    {
       "id": "performance-10",
       "category": "serm-ai",
       "categoryName": "SERM & AI & SMM",
