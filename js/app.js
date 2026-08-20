@@ -52,7 +52,7 @@
           'serm-ai-19': { value: '10–15 s', label: 'per image', sub: 'up to 20 per run' },
           'serm-ai-23': { value: '6', label: 'employees', sub: 'get ERID marking for creatives automatically' },
           'serm-ai-22': { value: '15 sec', label: 'one branded story', sub: 'with identity · no designer' },
-          'serm-ai-21': { value: '40+', label: 'leads in 2 days', sub: 'warmed list' },
+          'serm-ai-21': { value: '40+', label: 'leads in 2 days', sub: 'Smart AI equipment catalog with geo lots' },
           'serm-ai-20': { value: '150k+ ₽', label: 'agency quote skipped', sub: 'in-house test loop' },
         },
         coverFallback: {
@@ -112,7 +112,7 @@
           'serm-ai-19': { value: '10–15 с', label: 'на одно фото', sub: 'до 20 за запуск' },
           'serm-ai-23': { value: '6', label: 'сотрудников', sub: 'получают ERID маркировку для макетов автоматом' },
           'serm-ai-22': { value: '15 сек', label: 'один брендированный сторис', sub: 'с айдентикой · без дизайнера' },
-          'serm-ai-21': { value: '40+', label: 'заявок за 2 дня', sub: 'прогретая база' },
+          'serm-ai-21': { value: '40+', label: 'заявок за 2 дня', sub: 'Умный ИИ каталог техники с гео-стоянками' },
           'serm-ai-20': { value: '150k+ ₽', label: 'оценка агентства', sub: 'тестовый контур in-house' },
         },
         coverFallback: {
