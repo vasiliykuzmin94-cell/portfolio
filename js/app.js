@@ -60,7 +60,8 @@
           analytics: { value: 'B2B', label: 'analytics' },
           'web-seo': { value: 'SEO', label: 'web & search' },
           'crm-email': { value: 'CRM', label: 'retention' },
-          'serm-ai': { value: 'AI', label: 'innovation' },
+          ai: { value: 'AI', label: 'innovation' },
+          'serm-smm': { value: 'SMM', label: 'reputation' },
         },
         metricLabels: { leads: 'leads', cpl: 'CPL', revenue: 'revenue', conversion: 'conversion' },
       }
@@ -119,7 +120,8 @@
           analytics: { value: 'B2B', label: 'analytics' },
           'web-seo': { value: 'SEO', label: 'web & search' },
           'crm-email': { value: 'CRM', label: 'retention' },
-          'serm-ai': { value: 'AI', label: 'innovation' },
+          ai: { value: 'AI', label: 'innovation' },
+          'serm-smm': { value: 'SMM', label: 'reputation' },
         },
         metricLabels: { leads: 'лидов', cpl: 'CPL', revenue: 'оборот', conversion: 'конверсия' },
       };
@@ -617,8 +619,8 @@
     SEO: 'web-seo',
     Web: 'web-seo',
     Email: 'crm-email',
-    AI: 'serm-ai',
-    SMM: 'serm-ai',
+    AI: 'ai',
+    SMM: 'serm-smm',
     'Digital Strategy': 'performance',
   };
 

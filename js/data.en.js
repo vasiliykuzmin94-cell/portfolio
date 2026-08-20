@@ -3,9 +3,10 @@ const PORTFOLIO_DATA = {
   "categories": [
     { "id": "performance", "name": "Performance" },
     { "id": "analytics", "name": "Analytics" },
+    { "id": "ai", "name": "AI" },
     { "id": "web-seo", "name": "Web & SEO" },
     { "id": "crm-email", "name": "CRM & Email" },
-    { "id": "serm-ai", "name": "SERM & AI & SMM" }
+    { "id": "serm-smm", "name": "SERM & SMM" }
   ],
   "cases": [
     {
@@ -228,8 +229,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-19",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "AI service for preparing equipment photos for publication",
       "description": "MVP built with Cursor and Nano Banana: cleaning Baltliz equipment photos in 10–15 seconds — no Photoshop.",
       "content": "Case: AI service for preparing equipment photos for publication\nClient: Baltliz\nCase period: 2026\n\nBaltliz lists repossessed equipment on its own site and Avito. Yard photos often included other vehicles, people, dirt, and visual clutter. Managers either spent time retouching by hand or published the shots as-is. A year earlier, IT had already tried to automate this — the tool did not survive real workloads. The need was a simple product that cleans the frame without distorting the equipment’s condition.\n* End-to-end MVP: Designed and shipped the service alone — from idea to a working product. Built it in Cursor, deployed it on a VPS, and wired image processing through Nano Banana — with no department budget and no engineering team.\n* Simple flow: Upload → Process → Download ZIP.\n* Background cleanup: Removes unwanted objects from the frame.\n* Commercial format: Normalizes photos to a consistent 4:3 layout and adds a semi-transparent Baltliz logo.\n* Quality check: Shows a before/after preview; processes up to 20 photos per run.\nResults:\n* Processing time: 10–15 seconds — per image.\n* Status: MVP is live and used by the team day to day — without Photoshop, manual retouching, or a dedicated development team.\n",
@@ -243,8 +244,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-23",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "Automatic ERID labeling service for self-promotion ads",
       "description": "Leasing · product + MVP · 2026. Internal self-promo labeling: OCR → Yandex ORD → ERID in one click.",
       "content": "Case: Automatic ERID labeling service for self-promotion ads\nClient: Baltliz (Baltic Leasing LLC)\nSite: https://erid.baltlease.ru\nCase period: 2026\nTask: Build an internal tool where an employee uploads creative(s), picks a scenario, hits one button, and gets a ready ERID — without filling the ORD cabinet by hand for every file.\n\nBaltliz has a constant flow of ad creatives: banners, creative sets, and special-offer pages. Every self-promotion visual must be labeled in Yandex ORD and receive an ERID.\nPreviously this ate a lot of my time and the team’s: open the cabinet, fill fields, bind the organization, KKTU, creative form, wait for the token, hand it to a designer or manager. One layout meant a heavy manual chain — and there were dozens of layouts.\nThe pain was not “a button in the cabinet” but a repeatable process: the same self-promo scenario, the same parameters, with only the visual and a short offer gist changing.\n* Role: Idea → product → deploy — designed the scenarios and shipped the service end to end.\n* Department scenarios: One layout = one ERID; a creative set = one shared ERID; a special-offer page on the site (text–graphic block).\n* End-to-end web service: Upload up to 20 files; auto-read the offer gist via OCR (Gemini / NeuroAPI); register self-promo in Yandex ORD API v8; issue the ERID token with one-click copy.\n* Baltliz corporate rules baked in: self-promo organization, KKTU, creative form, production ORD contour — employees do not need to know the API or cabinet fields.\n* Brand UI: interface in the logic of Baltliz’s internal calculator — upload → get ERID, no extra settings.\n* Production: Deployed on a VPS and connected the corporate domain erid.baltlease.ru with HTTPS.\n* How it works: Layout → service → OCR (offer gist) → Yandex ORD → ERID → paste into the visual. A designer or manager completes the path in minutes without escalating to me or registering by hand in the cabinet.\n* Stack: FastAPI, Yandex ORD API v8, OCR (Gemini / NeuroAPI), Docker, VPS, corporate domain.\nResults:\n* Self-serve: 5 designers and 2 managers get ERID labeling for their visuals on their own.\n* Speed: a typical case shrank from a manual cabinet chain to a file upload and one button.\n* Corporate contour: one company-domain tool with ORD rules baked in and a history of ready tokens for working scenarios.\n",
@@ -258,8 +259,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-22",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "15 sec: one branded story with identity, no designer",
       "description": "One branded story with identity in ~15 seconds — from a lot photo, no designer.",
       "content": "Case: 15 sec: one branded story with identity, no designer\nClient: Baltliz\nCase period: 2026\n\nThe project started from an already live service for preparing equipment photos for sale — 4:3 processing for the website and Avito. I extended it with automatic Stories for specific used-equipment models.\nBranches and managers needed to assemble and distribute Stories for concrete lots quickly — to sell used equipment faster. Designers could not cover this flow: the team was tied up on large projects. The company needed a service where a manager could produce a branded Story in minutes.\n* Built on the existing tool: Did not start a separate product from scratch — extended the live photo-processing-for-sales service so Stories landed in the same Upload → Process → Download flow.\n* Branch workflow: A manager uploads a lot photo and enters the model, price, and features — the service builds a 9:16 Story for Telegram and statuses.\n* Stories without a designer: AI cleans and composes the equipment in a vertical frame; the Baltliz frame, title, subtitle, feature chips, and phone are applied automatically.\nResults:\n* Status: Used-equipment Stories run in the same service as sales-ready photo prep — branches and managers produce creatives themselves.\n* Next: Scaling auto-Stories beyond used equipment to other scenarios.\n",
@@ -277,8 +278,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-21",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "Closed stock showcase before Avito",
       "description": "Leasing · product + MVP · 2026. Smart used-equipment stock showcase from Excel before Avito: AI search and 40+ leads in 2 days.",
       "content": "Case: Closed stock showcase before Avito\nClient: Baltlease\nSite: https://sale.baltlease.ru\nCase period: 2026\nTask: Do not wait for the big catalog. Open a working demand channel from what already exists — without competing with Avito as “just another classifieds board”.\n\nWhile the used-equipment catalog on the new website stayed stuck in development, leads had nowhere to go. Live stock already lived in Excel and was dropped into Telegram — price, region, type, folder ID, and marketplace links when they existed. I turned that export into a smart showcase and framed missing photos as a feature: this is stock before Avito and Drom listings go live.\n* Insight: No pictures signal freshness, not a gap. Buyers who know equipment still inspect in person; being first matters more than browsing a photoshoot. Positioning: a closed internal stock sale, the full list, and the CTA “get it before Avito”.\n* Data and import: Operational Excel/XLSX parses into SQLite. One export → ~5,400 items. Type, brand, equipment class, region, price, mileage, and status are normalized; re-import refreshes the showcase without hand-building cards.\n* Public ID: The showcase and lead form use the folder number — the same ID sales already live by. Managers recognize the unit immediately; deep links use ?item=.\n* API (FastAPI): GET /api/stock — filtered, sorted, paginated feed.\n* Directories: GET /api/meta — types, regions, brands, statuses for selects.\n* AI search: POST /api/ai/search — natural-language phrase → structured filters + results; NeuroAPI (OpenAI-compatible chat) plus deterministic tightening so the LLM cannot invent catalog facts; text fallback if the model is down.\n* Leads and tracking: POST /api/lead — message to managers with folder ID; POST /api/track/outbound — Avito/Drom clicks; POST /api/import — restock from file.\n* Front end and map: static UI + Leaflet. Pins are yards/regions, not every machine; a click narrows the list. Photos were deliberately omitted — the product reads as closed stock, not a marketplace.\n* Analytics: Yandex Metrica with goals for leads and outbound marketplace clicks. Avito/Drom clicks outpaced form fills — an argument for the next step: response speed must beat the habit of “I’ll just check Avito”.\n* Role: Defined the product frame, built the MVP from export to lead, linked the operational ID to the public showcase, shipped smart search, and ran the first outreach to the warmed list.\n* Stack: FastAPI, SQLite, XLSX import, REST API, NeuroAPI, Leaflet, SMTP leads, Yandex Metrica.\n* Next: route leads by branch and yard region; SLA analytics on time-to-first-touch and untreated share.\nResults:\n* First outreach: 40+ leads in 2 days — to an already warmed list where expectations are usually weak.\n* Business takeaway: a demand channel can open without waiting for the perfect catalog — Telegram Excel converts to leads when you add search, an ID, and a reason to act now.\n",
@@ -292,8 +293,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-20",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "1C News Center: in-house news and ads channel without an agency",
       "description": "Test 1C news channel on PHP and XML: feed, view pixel, and click redirect counter — no agency.",
       "content": "Case: 1C News Center: in-house news and ads channel without an agency\nClient: 1C-Rarus Yoshkar-Ola LLC\nCase period: 2026\n\nThere was a chance to show clients the company’s own news and ads inside 1C — via a custom News Center. Developers were ready to roll the configuration out to client bases. Leadership first asked an agency to set up news publishing and editing: the quote came in above 150,000 ₽. I proposed building a test loop myself.\n* Working feed: Built a live feed on PHP and XML and started publishing news into 1C.\n* View pixel: An invisible image in the news body records an impression even if the reader never clicks.\n* Redirect counter: Clicks to a webinar or landing go through our link — the click is logged, then the user is sent to the target page.\nResults:\n* Channel without an agency: 1 test loop — feed plus impression and click tracking; enough to verify that developers ship installs and that the audience actually sees the news.\n* Next: a web UI for editing news and an analytics dashboard — if the test shows reach and real News Center installs at client sites.\n",
@@ -303,8 +304,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "performance-10",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "serm-smm",
+      "categoryName": "SERM & SMM",
       "title": "Telegram relaunch: growing the channel from 600 to 2,600 subscribers",
       "description": "Telegram relaunch: from 600 to 2,600 subscribers via content pillars, branch activation, and referral loops.",
       "content": "Case: Telegram relaunch: growing the channel from 600 to 2,600 subscribers\n\nFound a clear lag vs competitors on Telegram: 600 subscribers, no content plan, and no sync with PR.\n* Strategic relaunch: Mapped business goals into social and introduced regular pillars — special-offer digests and daily Stories with offers.\n* Cross-functional work: Synced with equipment suppliers and secured content and exclusive offers from them.\n* Growth loops: Launched gamification across 80 branches, email invites to the database, and a referral contest for subscribers.\nResults:\n* Audience growth: 2,600 — from 600 subscribers (+333%).\n* Branch-driven growth: 800\n* Email-driven growth: 150\n* Referral-driven growth: 1,000\n",
@@ -416,8 +417,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-17",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "ai",
+      "categoryName": "AI",
       "title": "Generative AI: viral C-level content and PR on a zero production budget",
       "description": "Viral executive content with generative AI at zero video-production cost.",
       "content": "Case: Generative AI: viral C-level content and PR on a zero production budget\n\nNeeded to spotlight the company’s tech leadership and create a standout moment at industry events — with zero budget for video production.\n* Approach: Produced viral videos with digital avatars of the CEO and COO.\n* Stack: Script, storyboard, voice cloning (ElevenLabs), video generation (Veo), art direction, and final edit.\n* Industry PR: The video was reshared in niche Telegram channels; Leasing in Russia media published an interview about the process.\n* Executive buy-in: The CEO used the video as the centerpiece of a keynote at the main industry exhibition.\nResults:\n* Production budget: 0 ₽\n* Reusable playbook: 1 format — adapted for holiday specials featuring company leaders.\n",
@@ -433,8 +434,8 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "serm-ai-18",
-      "category": "serm-ai",
-      "categoryName": "SERM & AI & SMM",
+      "category": "serm-smm",
+      "categoryName": "SERM & SMM",
       "title": "Wikipedia: building a durable SERM and SEO asset",
       "description": "Wikipedia page accepted on the first try: an encyclopedic asset and Knowledge Panel in search.",
       "content": "Case: Wikipedia: building a durable SERM and SEO asset\n\nThe company had no Wikipedia page — previous third-party attempts were deleted.\n* Notability case: Built an encyclopedic rationale around the company’s historical status (first leasing company in Russia licensed since 1991).\n* Production: Studied neutrality and moderation rules, briefed the copywriter, and managed communication with a Wikipedia mentor.\nResults:\n* Publication: 1 article — accepted by the community with no objections.\n* Search effect: 1 Knowledge Panel — steady organic visibility and SEO equity passed to the main site.\n",
