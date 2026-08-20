@@ -242,6 +242,17 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "serm-ai-23",
+      "category": "serm-ai",
+      "categoryName": "SERM & AI & SMM",
+      "title": "Automatic ERID labeling service for self-promotion ads",
+      "description": "Leasing · product + MVP · 2026. Internal self-promo labeling: OCR → Yandex ORD → ERID in one click.",
+      "content": "Case: Automatic ERID labeling service for self-promotion ads\nClient: Baltliz (Baltic Leasing LLC)\nSite: https://erid.baltlease.ru\nCase period: 2026\nTask: Build an internal tool where an employee uploads creative(s), picks a scenario, hits one button, and gets a ready ERID — without filling the ORD cabinet by hand for every file.\n\nBaltliz has a constant flow of ad creatives: banners, creative sets, and special-offer pages. Every self-promotion visual must be labeled in Yandex ORD and receive an ERID.\nPreviously this ate a lot of my time and the team’s: open the cabinet, fill fields, bind the organization, KKTU, creative form, wait for the token, hand it to a designer or manager. One layout meant a heavy manual chain — and there were dozens of layouts.\nThe pain was not “a button in the cabinet” but a repeatable process: the same self-promo scenario, the same parameters, with only the visual and a short offer gist changing.\n* Role: Idea → product → deploy — designed the scenarios and shipped the service end to end.\n* Department scenarios: One layout = one ERID; a creative set = one shared ERID; a special-offer page on the site (text–graphic block).\n* End-to-end web service: Upload up to 20 files; auto-read the offer gist via OCR (Gemini / NeuroAPI); register self-promo in Yandex ORD API v8; issue the ERID token with one-click copy.\n* Baltliz corporate rules baked in: self-promo organization, KKTU, creative form, production ORD contour — employees do not need to know the API or cabinet fields.\n* Brand UI: interface in the logic of Baltliz’s internal calculator — upload → get ERID, no extra settings.\n* Production: Deployed on a VPS and connected the corporate domain erid.baltlease.ru with HTTPS.\n* How it works: Layout → service → OCR (offer gist) → Yandex ORD → ERID → paste into the visual. A designer or manager completes the path in minutes without escalating to me or registering by hand in the cabinet.\n* Stack: FastAPI, Yandex ORD API v8, OCR (Gemini / NeuroAPI), Docker, VPS, corporate domain.\nResults:\n* Self-serve: 5 designers and 2 managers get ERID labeling for their visuals on their own.\n* Speed: a typical case shrank from a manual cabinet chain to a file upload and one button.\n* Corporate contour: one company-domain tool with ORD rules baked in and a history of ready tokens for working scenarios.\n",
+      "cover": null,
+      "images": [],
+      "imageLabels": []
+    },
+    {
       "id": "serm-ai-22",
       "category": "serm-ai",
       "categoryName": "SERM & AI & SMM",
