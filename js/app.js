@@ -1105,8 +1105,13 @@
         </div>`
       : '';
 
+    const summaryHtml = c.summary
+      ? `<p class="modal-lead">${highlightMetrics(String(c.summary).trim())}</p>`
+      : '';
+
     document.getElementById('modal-content').innerHTML = `
       <div class="modal-copy">
+        ${summaryHtml}
         ${
           briefBlocks
             ? `<div class="modal-brief">

@@ -1937,6 +1937,19 @@ body.is-ready .hero-tags { transition-delay: 0.42s; }
 
 .modal-copy { max-width: 46rem; }
 
+.modal-lead {
+  margin: 0 0 2.35rem;
+  color: #cfcdd3;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+.modal-lead + .modal-brief {
+  margin-top: 0.15rem;
+}
+
 .modal-section-title {
   margin: 0 0 1.35rem;
   color: var(--ink);
