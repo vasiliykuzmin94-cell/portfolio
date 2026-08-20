@@ -50,6 +50,7 @@
           'serm-ai-17': { value: '0 ₽', label: 'production budget' },
           'serm-ai-18': { value: 'SERM', label: 'durable asset' },
           'serm-ai-19': { value: '10–15 s', label: 'per image', sub: 'up to 20 per run' },
+          'serm-ai-20': { value: '150k+ ₽', label: 'agency quote skipped', sub: 'in-house test loop' },
         },
         coverFallback: {
           performance: { value: 'PPC', label: 'performance' },
@@ -105,6 +106,7 @@
           'serm-ai-17': { value: '0 ₽', label: 'бюджет продакшена' },
           'serm-ai-18': { value: 'SERM', label: 'цифровой актив' },
           'serm-ai-19': { value: '10–15 с', label: 'на одно фото', sub: 'до 20 за запуск' },
+          'serm-ai-20': { value: '150k+ ₽', label: 'оценка агентства', sub: 'тестовый контур in-house' },
         },
         coverFallback: {
           performance: { value: 'PPC', label: 'performance' },

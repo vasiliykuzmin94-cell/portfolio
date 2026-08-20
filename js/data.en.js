@@ -242,6 +242,17 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "serm-ai-20",
+      "category": "serm-ai",
+      "categoryName": "SERM & AI & SMM",
+      "title": "1C News Center: in-house news and ads channel without an agency",
+      "description": "Test 1C news channel on PHP and XML: feed, view pixel, and click redirect counter — no agency.",
+      "content": "Case: 1C News Center: in-house news and ads channel without an agency\nClient: 1C-Rarus Yoshkar-Ola LLC\nCase period: 2026\n\nThere was a chance to show clients the company’s own news and ads inside 1C — via a custom News Center. Developers were ready to roll the configuration out to client bases. Leadership first asked an agency to set up news publishing and editing: the quote came in above 150,000 ₽. I proposed building a test loop myself.\n* Working feed: Built a live feed on PHP and XML and started publishing news into 1C.\n* View pixel: An invisible image in the news body records an impression even if the reader never clicks.\n* Redirect counter: Clicks to a webinar or landing go through our link — the click is logged, then the user is sent to the target page.\nResults:\n* Channel without an agency: 1 test loop — feed plus impression and click tracking; enough to verify that developers ship installs and that the audience actually sees the news.\n* Next: a web UI for editing news and an analytics dashboard — if the test shows reach and real News Center installs at client sites.\n",
+      "cover": null,
+      "images": [],
+      "imageLabels": []
+    },
+    {
       "id": "performance-10",
       "category": "serm-ai",
       "categoryName": "SERM & AI & SMM",
