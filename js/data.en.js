@@ -1,12 +1,30 @@
 const PORTFOLIO_DATA = {
-  "main": "Digital marketer at the intersection of performance, analytics, technology, and\u00A0AI.\nI turn ads, data, CRM, web, and content into one system that drives business results.\nCore competencies\nPerformance · Analytics · CRM · SEO · Web · Email · AI · Digital Strategy\nBy the numbers\n9 years in digital marketing\n4M ₽ monthly ad budget under management\n4.5B ₽ in new business influenced by marketing in one year\n10,280 leads generated through PPC in a year\nCareer path\n1C-Rarus, Yoshkar-Ola — Digital Marketing Specialist\n2017–2020\nFirst independent in-house role: owned the company’s digital marketing — paid search and web analytics, SEO, website and landing-page development, CRM integrations, and email. Moved from one-off tasks to a full system for acquiring and processing online leads.\nCitrus — Senior PPC Specialist\n2020–2022\nJoined a digital agency to work across business models and a wider brief. Managed up to 15 accounts at once — strategy, launch, and campaign analytics — and contributed to website builds and digital strategies.\nBaltic Leasing — Digital Marketer\n2022–2026\nMoved from agency work into a large corporate business and expanded ownership from performance into a full digital stack: advertising, analytics, SEO, CRM and email, web projects, content, and experimental AI. Worked at the intersection of marketing, technology, and business goals.\nCertificates\nCore paid-search and analytics certifications from Yandex and Google\nYandex:\nYandex Direct Specialist (advanced, with proctoring)\nYandex Direct Specialist (basic)\nYandex Display Advertising Specialist\nYandex Metrica Specialist\nGoogle:\nGoogle Ads Search certification\nGoogle Ads Video certification\nGoogle Ads Display certification\nGoogle Ads Shopping certification\nGoogle Analytics Individual Qualification\nContacts\nAlways available\nHappy to discuss your goals\n8 (987) 717-95-38\nV_kuzmin_94@mail.ru\nhttps://t.me/vasily_kuzmin_94\nhttps://vk.com/v__kuzmin",
+  "main": "Digital marketer at the intersection of performance, analytics, technology, and AI.\nI turn ads, data, CRM, web, and content into one system that drives business results.\nCore competencies\nPerformance · Analytics · CRM · SEO · Web · Email · AI · Digital Strategy\nBy the numbers\n9 years in digital marketing\n4M ₽ monthly ad budget under management\n4.5B ₽ in new business influenced by marketing in one year\n10,280 leads generated through PPC in a year\nCareer path\n1C-Rarus, Yoshkar-Ola — Digital Marketing Specialist\n2017–2020\nFirst independent in-house role: owned the company’s digital marketing — paid search and web analytics, SEO, website and landing-page development, CRM integrations, and email. Moved from one-off tasks to a full system for acquiring and processing online leads.\nCitrus — Senior PPC Specialist\n2020–2022\nJoined a digital agency to work across business models and a wider brief. Managed up to 15 accounts at once — strategy, launch, and campaign analytics — and contributed to website builds and digital strategies.\nBaltic Leasing — Digital Marketer\n2022–2026\nMoved from agency work into a large corporate business and expanded ownership from performance into a full digital stack: advertising, analytics, SEO, CRM and email, web projects, content, and experimental AI. Worked at the intersection of marketing, technology, and business goals.\nCertificates\nCore paid-search and analytics certifications from Yandex and Google\nYandex:\nYandex Direct Specialist (advanced, with proctoring)\nYandex Direct Specialist (basic)\nYandex Display Advertising Specialist\nYandex Metrica Specialist\nGoogle:\nGoogle Ads Search certification\nGoogle Ads Video certification\nGoogle Ads Display certification\nGoogle Ads Shopping certification\nGoogle Analytics Individual Qualification\nContacts\nAlways available\nHappy to discuss your goals\n8 (987) 717-95-38\nV_kuzmin_94@mail.ru\nhttps://t.me/vasily_kuzmin_94\nhttps://vk.com/v__kuzmin",
   "categories": [
-    { "id": "performance", "name": "Performance" },
-    { "id": "analytics", "name": "Analytics" },
-    { "id": "ai", "name": "AI" },
-    { "id": "web-seo", "name": "Web & SEO" },
-    { "id": "crm-email", "name": "CRM & Email" },
-    { "id": "serm-smm", "name": "SERM & SMM" }
+    {
+      "id": "performance",
+      "name": "Performance"
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics"
+    },
+    {
+      "id": "ai",
+      "name": "AI"
+    },
+    {
+      "id": "web-seo",
+      "name": "Web & SEO"
+    },
+    {
+      "id": "crm-email",
+      "name": "CRM & Email"
+    },
+    {
+      "id": "serm-smm",
+      "name": "SERM & SMM"
+    }
   ],
   "cases": [
     {
@@ -228,6 +246,40 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "serm-ai-21",
+      "category": "ai",
+      "categoryName": "AI",
+      "title": "Closed stock showcase before Avito",
+      "description": "Leasing · product + MVP · 2026. Smart used-equipment stock showcase from Excel before Avito: AI search and 40+ leads in 2 days.",
+      "content": "Case: Closed stock showcase before Avito\nClient: Baltlease\nSite: https://sale.baltlease.ru\nCase period: 2026\nTask: Do not wait for the big catalog. Open a working demand channel from what already exists — without competing with Avito as “just another classifieds board”.\n\nWhile the used-equipment catalog on the new website stayed stuck in development, leads had nowhere to go. Live stock already lived in Excel and was dropped into Telegram — price, region, type, folder ID, and marketplace links when they existed. I turned that export into a smart showcase and framed missing photos as a feature: this is stock before Avito and Drom listings go live.\n* Insight: No pictures signal freshness, not a gap. Buyers who know equipment still inspect in person; being first matters more than browsing a photoshoot. Positioning: a closed internal stock sale, the full list, and the CTA “get it before Avito”.\n* Data and import: Operational Excel/XLSX parses into SQLite. One export → ~5,400 items. Type, brand, equipment class, region, price, mileage, and status are normalized; re-import refreshes the showcase without hand-building cards.\n* Public ID: The showcase and lead form use the folder number — the same ID sales already live by. Managers recognize the unit immediately; deep links use ?item=.\n* API (FastAPI): GET /api/stock — filtered, sorted, paginated feed.\n* Directories: GET /api/meta — types, regions, brands, statuses for selects.\n* AI search: POST /api/ai/search — natural-language phrase → structured filters + results; NeuroAPI (OpenAI-compatible chat) plus deterministic tightening so the LLM cannot invent catalog facts; text fallback if the model is down.\n* Leads and tracking: POST /api/lead — message to managers with folder ID; POST /api/track/outbound — Avito/Drom clicks; POST /api/import — restock from file.\n* Front end and map: static UI + Leaflet. Pins are yards/regions, not every machine; a click narrows the list. Photos were deliberately omitted — the product reads as closed stock, not a marketplace.\n* Analytics: Yandex Metrica with goals for leads and outbound marketplace clicks. Avito/Drom clicks outpaced form fills — an argument for the next step: response speed must beat the habit of “I’ll just check Avito”.\n* Role: Defined the product frame, built the MVP from export to lead, linked the operational ID to the public showcase, shipped smart search, and ran the first outreach to the warmed list.\n* Stack: FastAPI, SQLite, XLSX import, REST API, NeuroAPI, Leaflet, SMTP leads, Yandex Metrica.\n* Next: route leads by branch and yard region; SLA analytics on time-to-first-touch and untreated share.\nResults:\n* First outreach: 40+ leads in 2 days — to an already warmed list where expectations are usually weak.\n* Business takeaway: a demand channel can open without waiting for the perfect catalog — Telegram Excel converts to leads when you add search, an ID, and a reason to act now.\n",
+      "cover": "assets/cases/serm-ai-21/cover-01.webp",
+      "images": [
+        "assets/cases/serm-ai-21/cover-01.webp"
+      ],
+      "imageLabels": [
+        "Screenshot of sale.baltlease.ru showcase"
+      ]
+    },
+    {
+      "id": "serm-ai-22",
+      "category": "ai",
+      "categoryName": "AI",
+      "title": "15 sec: one branded story with identity, no designer",
+      "description": "One branded story with identity in ~15 seconds — from a lot photo, no designer.",
+      "content": "Case: 15 sec: one branded story with identity, no designer\nClient: Baltliz\nCase period: 2026\n\nThe project started from an already live service for preparing equipment photos for sale — 4:3 processing for the website and Avito. I extended it with automatic Stories for specific used-equipment models.\nBranches and managers needed to assemble and distribute Stories for concrete lots quickly — to sell used equipment faster. Designers could not cover this flow: the team was tied up on large projects. The company needed a service where a manager could produce a branded Story in minutes.\n* Built on the existing tool: Did not start a separate product from scratch — extended the live photo-processing-for-sales service so Stories landed in the same Upload → Process → Download flow.\n* Branch workflow: A manager uploads a lot photo and enters the model, price, and features — the service builds a 9:16 Story for Telegram and statuses.\n* Stories without a designer: AI cleans and composes the equipment in a vertical frame; the Baltliz frame, title, subtitle, feature chips, and phone are applied automatically.\nResults:\n* Status: Used-equipment Stories run in the same service as sales-ready photo prep — branches and managers produce creatives themselves.\n* Next: Scaling auto-Stories beyond used equipment to other scenarios.\n",
+      "cover": "assets/cases/serm-ai-22/story-01.webp",
+      "images": [
+        "assets/cases/serm-ai-22/story-01.webp",
+        "assets/cases/serm-ai-22/story-02.webp",
+        "assets/cases/serm-ai-22/story-03.webp"
+      ],
+      "imageLabels": [
+        "Story example: backhoe loader",
+        "Story example: Mercedes",
+        "Story example: Mercedes"
+      ]
+    },
+    {
       "id": "serm-ai-19",
       "category": "ai",
       "categoryName": "AI",
@@ -255,40 +307,6 @@ const PORTFOLIO_DATA = {
       ],
       "imageLabels": [
         "Screenshot of erid.baltlease.ru"
-      ]
-    },
-    {
-      "id": "serm-ai-22",
-      "category": "ai",
-      "categoryName": "AI",
-      "title": "15 sec: one branded story with identity, no designer",
-      "description": "One branded story with identity in ~15 seconds — from a lot photo, no designer.",
-      "content": "Case: 15 sec: one branded story with identity, no designer\nClient: Baltliz\nCase period: 2026\n\nThe project started from an already live service for preparing equipment photos for sale — 4:3 processing for the website and Avito. I extended it with automatic Stories for specific used-equipment models.\nBranches and managers needed to assemble and distribute Stories for concrete lots quickly — to sell used equipment faster. Designers could not cover this flow: the team was tied up on large projects. The company needed a service where a manager could produce a branded Story in minutes.\n* Built on the existing tool: Did not start a separate product from scratch — extended the live photo-processing-for-sales service so Stories landed in the same Upload → Process → Download flow.\n* Branch workflow: A manager uploads a lot photo and enters the model, price, and features — the service builds a 9:16 Story for Telegram and statuses.\n* Stories without a designer: AI cleans and composes the equipment in a vertical frame; the Baltliz frame, title, subtitle, feature chips, and phone are applied automatically.\nResults:\n* Status: Used-equipment Stories run in the same service as sales-ready photo prep — branches and managers produce creatives themselves.\n* Next: Scaling auto-Stories beyond used equipment to other scenarios.\n",
-      "cover": "assets/cases/serm-ai-22/story-01.webp",
-      "images": [
-        "assets/cases/serm-ai-22/story-01.webp",
-        "assets/cases/serm-ai-22/story-02.webp",
-        "assets/cases/serm-ai-22/story-03.webp"
-      ],
-      "imageLabels": [
-        "Story example: backhoe loader",
-        "Story example: Mercedes",
-        "Story example: Mercedes"
-      ]
-    },
-    {
-      "id": "serm-ai-21",
-      "category": "ai",
-      "categoryName": "AI",
-      "title": "Closed stock showcase before Avito",
-      "description": "Leasing · product + MVP · 2026. Smart used-equipment stock showcase from Excel before Avito: AI search and 40+ leads in 2 days.",
-      "content": "Case: Closed stock showcase before Avito\nClient: Baltlease\nSite: https://sale.baltlease.ru\nCase period: 2026\nTask: Do not wait for the big catalog. Open a working demand channel from what already exists — without competing with Avito as “just another classifieds board”.\n\nWhile the used-equipment catalog on the new website stayed stuck in development, leads had nowhere to go. Live stock already lived in Excel and was dropped into Telegram — price, region, type, folder ID, and marketplace links when they existed. I turned that export into a smart showcase and framed missing photos as a feature: this is stock before Avito and Drom listings go live.\n* Insight: No pictures signal freshness, not a gap. Buyers who know equipment still inspect in person; being first matters more than browsing a photoshoot. Positioning: a closed internal stock sale, the full list, and the CTA “get it before Avito”.\n* Data and import: Operational Excel/XLSX parses into SQLite. One export → ~5,400 items. Type, brand, equipment class, region, price, mileage, and status are normalized; re-import refreshes the showcase without hand-building cards.\n* Public ID: The showcase and lead form use the folder number — the same ID sales already live by. Managers recognize the unit immediately; deep links use ?item=.\n* API (FastAPI): GET /api/stock — filtered, sorted, paginated feed.\n* Directories: GET /api/meta — types, regions, brands, statuses for selects.\n* AI search: POST /api/ai/search — natural-language phrase → structured filters + results; NeuroAPI (OpenAI-compatible chat) plus deterministic tightening so the LLM cannot invent catalog facts; text fallback if the model is down.\n* Leads and tracking: POST /api/lead — message to managers with folder ID; POST /api/track/outbound — Avito/Drom clicks; POST /api/import — restock from file.\n* Front end and map: static UI + Leaflet. Pins are yards/regions, not every machine; a click narrows the list. Photos were deliberately omitted — the product reads as closed stock, not a marketplace.\n* Analytics: Yandex Metrica with goals for leads and outbound marketplace clicks. Avito/Drom clicks outpaced form fills — an argument for the next step: response speed must beat the habit of “I’ll just check Avito”.\n* Role: Defined the product frame, built the MVP from export to lead, linked the operational ID to the public showcase, shipped smart search, and ran the first outreach to the warmed list.\n* Stack: FastAPI, SQLite, XLSX import, REST API, NeuroAPI, Leaflet, SMTP leads, Yandex Metrica.\n* Next: route leads by branch and yard region; SLA analytics on time-to-first-touch and untreated share.\nResults:\n* First outreach: 40+ leads in 2 days — to an already warmed list where expectations are usually weak.\n* Business takeaway: a demand channel can open without waiting for the perfect catalog — Telegram Excel converts to leads when you add search, an ID, and a reason to act now.\n",
-      "cover": "assets/cases/serm-ai-21/cover-01.webp",
-      "images": [
-        "assets/cases/serm-ai-21/cover-01.webp"
-      ],
-      "imageLabels": [
-        "Screenshot of sale.baltlease.ru showcase"
       ]
     },
     {
@@ -448,4 +466,4 @@ const PORTFOLIO_DATA = {
       ]
     }
   ]
-};
+}
