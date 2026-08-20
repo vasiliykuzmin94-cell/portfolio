@@ -242,6 +242,40 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "serm-ai-22",
+      "category": "serm-ai",
+      "categoryName": "SERM & AI & SMM",
+      "title": "Automatic Stories for equipment on sale",
+      "description": "Automatic 9:16 Stories for used equipment — an extension of the live photo-wash tool.",
+      "content": "Case: Automatic Stories for equipment on sale\nClient: Baltliz\nCase period: 2026\n\nThe project started from an already live service for preparing equipment photos — a 4:3 wash for the website and Avito. I extended it with automatic Stories for specific used-equipment models.\nBranches and managers needed to assemble and distribute Stories for concrete lots quickly — to sell used equipment faster. Designers could not cover this flow: the team was tied up on large projects. The company needed a service where a manager could produce a branded Story in minutes.\n* Built on the existing tool: Did not start a separate product from scratch — extended the live photo-wash service so Stories landed in the same Upload → Process → Download flow.\n* Branch workflow: A manager uploads a lot photo and enters the model, price, and features — the service builds a 9:16 Story for Telegram and statuses.\n* Stories without a designer: AI cleans and composes the equipment in a vertical frame; the Baltliz frame, title, subtitle, feature chips, and phone are applied automatically.\nResults:\n* Status: Used-equipment Stories run in the same service as the photo wash — branches and managers produce creatives themselves.\n* Next: Scaling auto-Stories beyond used equipment to other scenarios.\n",
+      "cover": "assets/cases/serm-ai-22/cover-01.webp",
+      "images": [
+        "assets/cases/serm-ai-22/cover-01.webp",
+        "assets/cases/serm-ai-22/cover-02.webp",
+        "assets/cases/serm-ai-22/cover-03.webp"
+      ],
+      "imageLabels": [
+        "Story example: used Mercedes",
+        "Story example: machine tool",
+        "Story example: truck"
+      ]
+    },
+    {
+      "id": "serm-ai-21",
+      "category": "serm-ai",
+      "categoryName": "SERM & AI & SMM",
+      "title": "Closed stock showcase before Avito",
+      "description": "Leasing · product + MVP · 2026. Smart used-equipment stock showcase from Excel before Avito: AI search and 40+ leads in 2 days.",
+      "content": "Case: Closed stock showcase before Avito\nClient: Baltlease\nSite: https://sale.baltlease.ru\nCase period: 2026\nTask: Do not wait for the big catalog. Open a working demand channel from what already exists — without competing with Avito as “just another classifieds board”.\n\nWhile the used-equipment catalog on the new website stayed stuck in development, leads had nowhere to go. Live stock already lived in Excel and was dropped into Telegram — price, region, type, folder ID, and marketplace links when they existed. I turned that export into a smart showcase and framed missing photos as a feature: this is stock before Avito and Drom listings go live.\n* Insight: No pictures signal freshness, not a gap. Buyers who know equipment still inspect in person; being first matters more than browsing a photoshoot. Positioning: a closed internal stock sale, the full list, and the CTA “get it before Avito”.\n* Data and import: Operational Excel/XLSX parses into SQLite. One export → ~5,400 items. Type, brand, equipment class, region, price, mileage, and status are normalized; re-import refreshes the showcase without hand-building cards.\n* Public ID: The showcase and lead form use the folder number — the same ID sales already live by. Managers recognize the unit immediately; deep links use ?item=.\n* API (FastAPI): GET /api/stock — filtered, sorted, paginated feed.\n* Directories: GET /api/meta — types, regions, brands, statuses for selects.\n* AI search: POST /api/ai/search — natural-language phrase → structured filters + results; NeuroAPI (OpenAI-compatible chat) plus deterministic tightening so the LLM cannot invent catalog facts; text fallback if the model is down.\n* Leads and tracking: POST /api/lead — message to managers with folder ID; POST /api/track/outbound — Avito/Drom clicks; POST /api/import — restock from file.\n* Front end and map: static UI + Leaflet. Pins are yards/regions, not every machine; a click narrows the list. Photos were deliberately omitted — the product reads as closed stock, not a marketplace.\n* Analytics: Yandex Metrica with goals for leads and outbound marketplace clicks. Avito/Drom clicks outpaced form fills — an argument for the next step: response speed must beat the habit of “I’ll just check Avito”.\n* Role: Defined the product frame, built the MVP from export to lead, linked the operational ID to the public showcase, shipped smart search, and ran the first outreach to the warmed list.\n* Stack: FastAPI, SQLite, XLSX import, REST API, NeuroAPI, Leaflet, SMTP leads, Yandex Metrica.\n* Next: route leads by branch and yard region; SLA analytics on time-to-first-touch and untreated share.\nResults:\n* First outreach: 40+ leads in 2 days — to an already warmed list where expectations are usually weak.\n* Business takeaway: a demand channel can open without waiting for the perfect catalog — Telegram Excel converts to leads when you add search, an ID, and a reason to act now.\n",
+      "cover": "assets/cases/serm-ai-21/cover-01.webp",
+      "images": [
+        "assets/cases/serm-ai-21/cover-01.webp"
+      ],
+      "imageLabels": [
+        "Screenshot of sale.baltlease.ru showcase"
+      ]
+    },
+    {
       "id": "serm-ai-20",
       "category": "serm-ai",
       "categoryName": "SERM & AI & SMM",
